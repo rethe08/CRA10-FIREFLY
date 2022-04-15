@@ -19,14 +19,7 @@ public class EmployeeDB implements IEmployeeDB {
         return 0;
     }
 
-    /**
-     employeeNum
-     name
-     cl
-     phoneNum
-     birthday
-     certi
-     */
+
 
     @Override
     public int searchEmployeeCnt(String searchCol, String searchValue) {
@@ -34,42 +27,42 @@ public class EmployeeDB implements IEmployeeDB {
 
         if(searchCol.equals("employeeNum")){
             for(EmployeeInfo e : empList) {
-                e.getEmployeeNumByString().equals(searchValue);
-                searchCnt++;
+                if(e.getEmployeeNumByString().equals(searchValue) )
+                    searchCnt++;
             }
         }
         else if(searchCol.equals("name")){
             for(EmployeeInfo e : empList) {
-                e.getName().equals(searchValue);
-                searchCnt++;
+                if(e.getName().equals(searchValue) )
+                    searchCnt++;
             }
 
         }
         else if(searchCol.equals("cl")){
             for(EmployeeInfo e : empList) {
-                e.getCl().equals(EmployeeInfo.CareerLevel.valueOf(searchValue)                        );
-                searchCnt++;
+                if(e.getCl().equals(EmployeeInfo.CareerLevel.valueOf(searchValue)))
+                    searchCnt++;
             }
 
         }
         else if(searchCol.equals("phoneNum")){
             for(EmployeeInfo e : empList) {
-                e.getPhoneNumByString().equals(searchValue);
-                searchCnt++;
+                if(e.getPhoneNumByString().equals(searchValue))
+                    searchCnt++;
             }
 
         }
         else if(searchCol.equals("birthday")){
             for(EmployeeInfo e : empList) {
-                e.getBirthdayByString().equals(searchValue);
-                searchCnt++;
+                if(e.getBirthdayByString().equals(searchValue))
+                    searchCnt++;
             }
 
         }
         else if(searchCol.equals("certi")){
             for(EmployeeInfo e : empList) {
-                e.getCerti().equals(EmployeeInfo.Certificate.valueOf(searchValue));
-                searchCnt++;
+                if(e.getCerti().equals(EmployeeInfo.Certificate.valueOf(searchValue)))
+                    searchCnt++;
             }
 
         }
