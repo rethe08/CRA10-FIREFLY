@@ -8,7 +8,11 @@ import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
 
-    List<EmployeeInfo> empList = new ArrayList<>();
+    static List<EmployeeInfo> empList = new ArrayList<>();
+
+    public void clear(){
+        empList.clear();
+    }
 
     public int getEmpNum(){
         return empList.size();
@@ -42,7 +46,7 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     @Override
-    public List<EmployeeInfo> delEmployeeRetTop5(String searchCol, String searchValue, String option2) {
+    public List<EmployeeInfo> delEmployeeRetToTop5(String searchCol, String searchValue, String option2) {
 
         List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
 
@@ -58,7 +62,7 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     @Override
-    public int delEmployeeRetCnt(String searchCol, String searchValue, String option2){
+    public int delEmployeeRetToCnt(String searchCol, String searchValue, String option2){
         List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
 
         for(EmployeeInfo e : emps){
@@ -71,10 +75,74 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     @Override
-    public int modEmployee(String searchCol, String searchValue, String modCol, String modValue, String option2) {
-        return 0;
+    public int modEmployeeRetToCnt(String searchCol, String searchValue,String option2, String modCol, String modValue) {
+        List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
+
+        for(EmployeeInfo e : emps){
+            empList.remove(e);
+            EmployeeInfo newEmp = makeNewModifiedEmployeeInList(e,modCol,modValue);
+            empList.add(newEmp);
+        }
+
+        return emps.size();
     }
 
+
+    @Override
+    public List<EmployeeInfo> modEmployeeRetToTop5(String searchCol, String searchValue, String option2, String modCol, String modValue) {
+        List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
+
+        for(EmployeeInfo e : emps){
+            empList.remove(e);
+            EmployeeInfo newEmp = makeNewModifiedEmployeeInList(e,modCol,modValue);
+            empList.add(newEmp);
+        }
+
+        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNumByString().compareTo( e2.getEmployeeNumByString() ) );
+
+        return emps.size() <= 5 ? emps : emps.subList(0,5);
+    }
+
+
+    private EmployeeInfo makeNewModifiedEmployeeInList(EmployeeInfo e, String modCol, String modValue){
+        EmployeeInfo newEmp ;
+        if(modCol.equals("employeeNum")){
+            newEmp = new EmployeeInfo(modValue, e.getName(), e.getCl().toString(),
+                                    e.getPhoneNumByString(), e.getBirthdayByString(), e.getCerti().toString());
+        }
+        else if(modCol.equals("name")){
+            newEmp = new EmployeeInfo(e.getEmployeeNumByString(), modValue, e.getCl().toString(),
+                    e.getPhoneNumByString(), e.getBirthdayByString(), e.getCerti().toString());
+
+        }
+        else if(modCol.equals("cl")){
+            newEmp = new EmployeeInfo(e.getEmployeeNumByString(), e.getName(), modValue,
+                    e.getPhoneNumByString(), e.getBirthdayByString(), e.getCerti().toString());
+
+
+        }
+        else if(modCol.equals("phoneNum")){
+            newEmp = new EmployeeInfo(e.getEmployeeNumByString(), e.getName(),  e.getCl().toString(),
+                    modValue, e.getBirthdayByString(), e.getCerti().toString());
+
+        }
+        else if(modCol.equals("birthday")){
+            newEmp = new EmployeeInfo(e.getEmployeeNumByString(), e.getName(),  e.getCl().toString(),
+                    e.getPhoneNumByString(), modValue, e.getCerti().toString());
+
+        }
+        else if(modCol.equals("certi")){
+            newEmp = new EmployeeInfo(e.getEmployeeNumByString(), e.getName(),  e.getCl().toString(),
+                    e.getPhoneNumByString(), e.getBirthdayByString(), modValue);
+
+
+        }
+        else{
+            return null;
+        }
+
+        return newEmp;
+    }
 
 
     private List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){

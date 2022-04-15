@@ -10,7 +10,7 @@ public class EmployDBTest {
     EmployeeInfo info1, info2, info3, info4, info5, info6;
 
 
-
+    IEmployeeDB db = new EmployeeDB();
 
 
 
@@ -30,23 +30,47 @@ public class EmployDBTest {
                 "010-3333-4444", "19900115", "PRO");
         info6 = new EmployeeInfo("10000006", "PIO KIM", "CL4",
                 "010-2000-1321", "19880715", "PRO");
+
+        ((EmployeeDB)db).clear();
+        Assertions.assertEquals (0, db.addEmployee(info1) );
+        Assertions.assertEquals (0, db.addEmployee(info2) );
+        Assertions.assertEquals (0, db.addEmployee(info3) );
+        Assertions.assertEquals (0, db.addEmployee(info4) );
+        Assertions.assertEquals (0, db.addEmployee(info5) );
+        Assertions.assertEquals (0, db.addEmployee(info6) );
+    }
+
+    @Test
+    void modTest(){
+
+        int cnt ;
+
+        cnt =0;
+        for(EmployeeInfo e : db.modEmployeeRetToTop5("cl","CL2" ,null,"certi","EX")){
+            Assertions.assertEquals( EmployeeInfo.CareerLevel.valueOf("CL2") , e.getCl());
+            System.out.println(e.getEmployeeNumByString());
+            cnt ++;
+        }
+        Assertions.assertEquals(3,cnt);
+        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+        System.out.println();
+
+        Assertions.assertEquals(3, db.modEmployeeRetToCnt("certi","EX" ,null,"cl","CL3"));
+        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+
+        Assertions.assertEquals(5, db.searchEmployeeCnt("cl","CL3",null ));
+
+
     }
 
 
     @Test
     void delTest(){
-        IEmployeeDB db = new EmployeeDB();
-        db.addEmployee(info1);
-        db.addEmployee(info2);
-        db.addEmployee(info3);
-        db.addEmployee(info4);
-        db.addEmployee(info5);
-        db.addEmployee(info6);
 
         int cnt ;
 
         cnt =0;
-        for(EmployeeInfo e : db.delEmployeeRetTop5("cl","CL2" ,null)){
+        for(EmployeeInfo e : db.delEmployeeRetToTop5("cl","CL2" ,null)){
             Assertions.assertEquals( EmployeeInfo.CareerLevel.valueOf("CL2" ) , e.getCl());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -62,7 +86,7 @@ public class EmployDBTest {
 
         Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
 
-        Assertions.assertEquals(2, db.delEmployeeRetCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(2, db.delEmployeeRetToCnt("name","KIM" ,"l"));
         Assertions.assertEquals(4,((EmployeeDB)db).getEmpNum());
 
 
@@ -71,13 +95,6 @@ public class EmployDBTest {
 
     @Test
     void addEmployeeTest(){
-        IEmployeeDB db = new EmployeeDB();
-        Assertions.assertEquals (0, db.addEmployee(info1) );
-        Assertions.assertEquals (0, db.addEmployee(info2) );
-        Assertions.assertEquals (0, db.addEmployee(info3) );
-        Assertions.assertEquals (0, db.addEmployee(info4) );
-        Assertions.assertEquals (0, db.addEmployee(info5) );
-        Assertions.assertEquals (0, db.addEmployee(info6) );
         Assertions.assertEquals (6, ((EmployeeDB)db).getEmpNum());
 
     }
@@ -86,13 +103,6 @@ public class EmployDBTest {
 
     @Test
     void searchCntEmployeeTest(){
-        IEmployeeDB db = new EmployeeDB();
-        db.addEmployee(info1);
-        db.addEmployee(info2);
-        db.addEmployee(info3);
-        db.addEmployee(info4);
-        db.addEmployee(info5);
-        db.addEmployee(info6);
 
         Assertions.assertEquals(1, db.searchEmployeeCnt("employeeNum","10000005",null ));
         Assertions.assertEquals(1, db.searchEmployeeCnt("employeeNum","10000001" ,null));
@@ -134,13 +144,6 @@ public class EmployDBTest {
 
     @Test
     void searchEmployeeTest(){
-        IEmployeeDB db = new EmployeeDB();
-        db.addEmployee(info1);
-        db.addEmployee(info2);
-        db.addEmployee(info3);
-        db.addEmployee(info4);
-        db.addEmployee(info5);
-        db.addEmployee(info6);
 
         int cnt ;
 
@@ -216,13 +219,6 @@ public class EmployDBTest {
 
     @Test
     void searchEmployeeOptionTest(){
-        IEmployeeDB db = new EmployeeDB();
-        db.addEmployee(info1);
-        db.addEmployee(info2);
-        db.addEmployee(info3);
-        db.addEmployee(info4);
-        db.addEmployee(info5);
-        db.addEmployee(info6);
 
         int cnt ;
 

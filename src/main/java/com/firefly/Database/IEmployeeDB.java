@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface IEmployeeDB {
     int addEmployee(EmployeeInfo e);
-    List<EmployeeInfo> delEmployeeRetTop5(String searchCol, String searchValue, String option2);
-    int delEmployeeRetCnt(String searchCol, String searchValue, String option2);
     int searchEmployeeCnt(String searchCol, String searchValue, String option2);
     List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2);
-    int modEmployee(String searchCol, String searchValue, String modCol, String modValue, String option2);
+    int delEmployeeRetToCnt(String searchCol, String searchValue, String option2);
+    List<EmployeeInfo> delEmployeeRetToTop5(String searchCol, String searchValue, String option2);
+    int modEmployeeRetToCnt(String searchCol, String searchValue, String option2, String modCol, String modValue);
+    List<EmployeeInfo> modEmployeeRetToTop5(String searchCol, String searchValue,String option2, String modCol, String modValue);
 }

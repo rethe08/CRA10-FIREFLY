@@ -22,5 +22,7 @@ public class EmployeeInfoTest {
         Assertions.assertEquals(01, info.getBirthMonth());
         Assertions.assertEquals(30, info.getBirthDayOnly());
         Assertions.assertEquals(EmployeeInfo.Certificate.ADV, info.getCerti());
+
+        System.out.println(info.getCerti().toString());
     }
 }
