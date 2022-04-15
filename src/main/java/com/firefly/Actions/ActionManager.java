@@ -18,8 +18,12 @@ public class ActionManager {
         inputValue.put("OPTION3",inputSplit[3]);
         inputValue.put("COLUMN",inputSplit[4]);
         inputValue.put("VALUE",inputSplit[5]);
-        inputValue.put("TobeCOLUMN",inputSplit[6]);
-        inputValue.put("TobeVALUE",inputSplit[7]);
+
+        if(inputValue.get("COMMAND").equals("MOD") && inputSplit.length==8){
+            inputValue.put("TobeCOLUMN",inputSplit[6]);
+            inputValue.put("TobeVALUE",inputSplit[7]);
+        }
+
 
 
         List<String> output = null;
