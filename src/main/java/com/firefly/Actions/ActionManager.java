@@ -20,6 +20,7 @@ public class ActionManager {
         inputValue.put("TobeCOLUMN",inputSplit[6]);
         inputValue.put("TobeVALUE",inputSplit[7]);
 
+
         String output = "";
 
         switch (inputAction){
