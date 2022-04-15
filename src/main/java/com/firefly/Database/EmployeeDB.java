@@ -40,6 +40,43 @@ public class EmployeeDB implements IEmployeeDB {
     }
 
 
+
+    @Override
+    public List<EmployeeInfo> delEmployeeRetTop5(String searchCol, String searchValue, String option2) {
+
+        List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
+
+        for(EmployeeInfo e : emps){
+            empList.remove(e);
+        }
+
+        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNumByString().compareTo( e2.getEmployeeNumByString() ) );
+
+        return emps.size() <= 5 ? emps : emps.subList(0,5);
+
+    }
+
+
+    @Override
+    public int delEmployeeRetCnt(String searchCol, String searchValue, String option2){
+        List<EmployeeInfo> emps = searchEmployee(searchCol,searchValue,option2);
+
+        for(EmployeeInfo e : emps){
+            empList.remove(e);
+        }
+
+        return emps.size();
+    }
+
+
+
+    @Override
+    public int modEmployee(String searchCol, String searchValue, String modCol, String modValue, String option2) {
+        return 0;
+    }
+
+
+
     private List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
         List<EmployeeInfo> emps = new LinkedList<>();
 
@@ -147,16 +184,4 @@ public class EmployeeDB implements IEmployeeDB {
 
 
 
-    @Override
-    public int delEmployee(String searchCol, String searchValue) {
-
-        return 0;
-    }
-
-
-
-    @Override
-    public int modEmployee(String searchCol, String searchValue, String modCol, String modValue) {
-        return 0;
-    }
 }

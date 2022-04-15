@@ -18,23 +18,53 @@ public class EmployDBTest {
     @BeforeEach
     void setup(){
 
-        info1 = new EmployeeInfo("10000010", "GILDONG HONG", "CL2",
-                "010-3333-4444", "19900115", "PRO");
-        info2 = new EmployeeInfo("10000008", "GILJA HA", "CL3",
-                "010-4444-5555", "19910215", "PRO");
-        info3 = new EmployeeInfo("10000001", "BOBBY KIM", "CL2",
+        info1 = new EmployeeInfo("10000001", "BOBBY KIM", "CL2",
                 "010-3333-7777", "19850715", "PRO");
-        info4 = new EmployeeInfo("10000006", "ALL JI", "CL3",
-                "010-3333-1231", "19990115", "PRO");
-        info5 = new EmployeeInfo("10000002", "NA LEE", "CL2",
+        info2 = new EmployeeInfo("10000002", "NA LEE", "CL2",
                 "010-1111-1321", "19770315", "PRO");
-        info6 = new EmployeeInfo("10000015", "PIO KIM", "CL4",
+        info3 = new EmployeeInfo("10000003", "ALL JI", "CL3",
+                "010-3333-1231", "19990115", "PRO");
+        info4 = new EmployeeInfo("10000004", "GILJA HA", "CL3",
+                "010-4444-5555", "19910215", "PRO");
+        info5 = new EmployeeInfo("10000005", "GILDONG HONG", "CL2",
+                "010-3333-4444", "19900115", "PRO");
+        info6 = new EmployeeInfo("10000006", "PIO KIM", "CL4",
                 "010-2000-1321", "19880715", "PRO");
     }
 
 
     @Test
     void delTest(){
+        IEmployeeDB db = new EmployeeDB();
+        db.addEmployee(info1);
+        db.addEmployee(info2);
+        db.addEmployee(info3);
+        db.addEmployee(info4);
+        db.addEmployee(info5);
+        db.addEmployee(info6);
+
+        int cnt ;
+
+        cnt =0;
+        for(EmployeeInfo e : db.delEmployeeRetTop5("cl","CL2" ,null)){
+            Assertions.assertEquals( EmployeeInfo.CareerLevel.valueOf("CL2" ) , e.getCl());
+            System.out.println(e.getEmployeeNumByString());
+            cnt ++;
+        }
+        Assertions.assertEquals(3,cnt);
+        Assertions.assertEquals(3,((EmployeeDB)db).getEmpNum());
+        System.out.println();
+
+        db.addEmployee(info1);
+        db.addEmployee(info2);
+        db.addEmployee(info5);
+
+
+        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+
+        Assertions.assertEquals(2, db.delEmployeeRetCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(4,((EmployeeDB)db).getEmpNum());
+
 
     }
 
@@ -64,7 +94,7 @@ public class EmployDBTest {
         db.addEmployee(info5);
         db.addEmployee(info6);
 
-        Assertions.assertEquals(1, db.searchEmployeeCnt("employeeNum","10000010",null ));
+        Assertions.assertEquals(1, db.searchEmployeeCnt("employeeNum","10000005",null ));
         Assertions.assertEquals(1, db.searchEmployeeCnt("employeeNum","10000001" ,null));
         Assertions.assertEquals(1, db.searchEmployeeCnt("name","GILJA HA" ,null));
         Assertions.assertEquals(3, db.searchEmployeeCnt("cl","CL2" ,null));
@@ -115,8 +145,8 @@ public class EmployDBTest {
         int cnt ;
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("employeeNum","10000010" ,null)){
-            Assertions.assertEquals("10000010",e.getEmployeeNumByString());
+        for(EmployeeInfo e : db.searchEmployeeTop5("employeeNum","10000005" ,null)){
+            Assertions.assertEquals("10000005",e.getEmployeeNumByString());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
         }
