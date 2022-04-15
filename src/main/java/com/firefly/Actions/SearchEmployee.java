@@ -2,7 +2,7 @@ package com.firefly.Actions;
 
 import java.util.HashMap;
 
-public class SearchEmployee {
+public class SearchEmployee implements IActionEmployee {
 
 
     public void search(String input){
@@ -34,4 +34,8 @@ public class SearchEmployee {
 
     }
 
+    @Override
+    public void printResult() {
+
+    }
 }
