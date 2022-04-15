@@ -5,4 +5,9 @@ public class ModEmployee implements IActionEmployee {
     public void printResult() {
 
     }
+
+    @Override
+    public String action(String input) {
+        return null;
+    }
 }
