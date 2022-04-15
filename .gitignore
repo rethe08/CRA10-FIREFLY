@@ -3,6 +3,8 @@
 
 # Ignore Gradle GUI config
 gradle-app.setting
+build/classes/java/main/Main.class
+build/tmp/compileJava/previous-compilation-data.bin
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
