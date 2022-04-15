@@ -9,6 +9,12 @@ public class EmployDBTest {
 
     EmployeeInfo info1, info2, info3, info4, info5, info6;
 
+
+
+
+
+
+
     @BeforeEach
     void setup(){
 
@@ -25,6 +31,13 @@ public class EmployDBTest {
         info6 = new EmployeeInfo("10000015", "PIO KIM", "CL4",
                 "010-2000-1321", "19880715", "PRO");
     }
+
+
+    @Test
+    void delTest(){
+
+    }
+
 
     @Test
     void addEmployeeTest(){
@@ -149,8 +162,8 @@ public class EmployDBTest {
         System.out.println();
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","19910205" ,null)){
-            Assertions.assertEquals("19910205",e.getBirthdayByString());
+        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","19910215" ,null)){
+            Assertions.assertEquals("19910215",e.getBirthdayByString());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
         }
@@ -254,13 +267,6 @@ public class EmployDBTest {
         Assertions.assertEquals(5,cnt);
         System.out.println();
 
-
-//
-//
-//        Assertions.assertEquals(1, db.searchEmployeeCnt("birthday","1991" ,"y"));
-//        Assertions.assertEquals(2, db.searchEmployeeCnt("birthday","01" ,"m"));
-//        Assertions.assertEquals(6, db.searchEmployeeCnt("birthday","15" ,"d"));
-//
 
 
 
