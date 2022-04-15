@@ -1,12 +1,13 @@
 package com.firefly.Actions;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SearchEmployee implements IActionEmployee {
 
 
     @Override
-    public String action(HashMap<String, String> inputCommand){
+    public List<String> action(HashMap<String, String> inputCommand){
 
         //실제 실행부분
         //-p 옵션 있을경우 record를 출력(max5개)

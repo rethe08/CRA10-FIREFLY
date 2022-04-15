@@ -1,6 +1,7 @@
 package com.firefly.Actions;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class AddEmployee implements IActionEmployee {
     @Override
@@ -9,7 +10,7 @@ public class AddEmployee implements IActionEmployee {
     }
 
     @Override
-    public String action(HashMap<String, String> inputCommand) {
+    public List<String> action(HashMap<String, String> inputCommand) {
         return null;
     }
 }
