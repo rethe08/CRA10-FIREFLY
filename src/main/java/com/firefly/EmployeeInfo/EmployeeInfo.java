@@ -17,21 +17,27 @@ public class EmployeeInfo {
     private int employeeNum;
     private String name;
     private CareerLevel cl;
-    private int phoneNum;
+    private int phoneNumMid;
+    private int phoneNumLast;
     private int birthday;
     private Certificate certi;
 
-    public EmployeeInfo(int employeeNum, String name, CareerLevel cl, int phoneNum, int birthday, Certificate certi){
-        this.employeeNum = employeeNum;
+    public EmployeeInfo(String employeeNum, String name, String cl, String phoneNum, String birthday, String certi){
+        this.employeeNum = Integer.parseInt(employeeNum);
         this.name = name;
-        this.cl = cl;
-        this.phoneNum = phoneNum;
-        this.birthday = birthday;
-        this.certi = certi;
+        this.cl = CareerLevel.valueOf(cl);
+        this.phoneNumMid = Integer.parseInt(phoneNum.split("-")[1]);
+        this.phoneNumLast = Integer.parseInt(phoneNum.split("-")[2]);
+        this.birthday = Integer.parseInt(birthday);
+        this.certi = Certificate.valueOf(certi);
     }
 
-    public int getEmployeeNum(){
+    public int getEmployeeNumByInt(){
         return employeeNum;
+    }
+
+    public String getEmployeeNumByString(){
+        return String.format("%08d", employeeNum);
     }
 
     public String getName(){
@@ -50,19 +56,27 @@ public class EmployeeInfo {
         return cl;
     }
 
-    public int getPhoneNum(){
-        return phoneNum;
+    public String getPhoneNumByString() {
+        return "010-" + String.format("%04d", phoneNumMid) + "-" + String.format("%04d",phoneNumLast);
+    }
+
+    public int getPhoneNum8digitsInt(){
+        return phoneNumMid * 10000 + phoneNumLast;
     }
 
     public int getPhoneNumMid(){
-        return phoneNum / 10000;
+        return phoneNumMid;
     }
 
     public int getPhoneNumLast(){
-        return phoneNum % 10000;
+        return phoneNumLast;
     }
 
-    public int getBirthday(){
+    public String getBirthdayByString(){
+        return String.format("%08d", birthday);
+    }
+
+    public int getBirthdayByInt(){
         return birthday;
     }
 
