@@ -1,9 +1,10 @@
 package com.firefly.Actions;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class ActionManager {
-    public String action(String inputCommand) {
+    public List<String> action(String inputCommand) {
 
         HashMap<String, String> inputValue = new HashMap<>();
 
@@ -17,11 +18,15 @@ public class ActionManager {
         inputValue.put("OPTION3",inputSplit[3]);
         inputValue.put("COLUMN",inputSplit[4]);
         inputValue.put("VALUE",inputSplit[5]);
-        inputValue.put("TobeCOLUMN",inputSplit[6]);
-        inputValue.put("TobeVALUE",inputSplit[7]);
+
+        if(inputValue.get("COMMAND").equals("MOD") && inputSplit.length==8){
+            inputValue.put("TobeCOLUMN",inputSplit[6]);
+            inputValue.put("TobeVALUE",inputSplit[7]);
+        }
 
 
-        String output = "";
+
+        List<String> output = null;
 
         switch (inputAction){
             case "ADD":
