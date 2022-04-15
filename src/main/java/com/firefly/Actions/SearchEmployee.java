@@ -5,13 +5,14 @@ import java.util.HashMap;
 public class SearchEmployee implements IActionEmployee {
 
 
-    public void search(String input){
+    @Override
+    public String action(String input){
 
         HashMap<String, String> parameters = new HashMap<>();
 
         //입력값을 ,로 쪼개서 저장
         String[] inputSplit = input.split(",");
-        if(inputSplit.length != 6) return;
+        if(inputSplit.length != 6) return input;
         parameters.put("COMMAND",inputSplit[0]);
         parameters.put("OPTION1",inputSplit[1]);
         parameters.put("OPTION2",inputSplit[2]);
@@ -31,7 +32,7 @@ public class SearchEmployee implements IActionEmployee {
         }
 
 
-
+        return input;
     }
 
     @Override

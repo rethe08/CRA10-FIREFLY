@@ -5,4 +5,9 @@ public class AddEmployee implements IActionEmployee {
     public void printResult() {
 
     }
+
+    @Override
+    public String action(String str) {
+        return str;
+    }
 }
