@@ -1,14 +1,14 @@
 package com.firefly.EmployeeInfo;
 
 public class EmployeeInfo {
-    public enum CareerLevel{
+    public enum CareerLevel {
         CL1,
         CL2,
         CL3,
         CL4,
     }
 
-    public enum Certificate{
+    public enum Certificate {
         ADV,
         PRO,
         EX,
@@ -22,7 +22,7 @@ public class EmployeeInfo {
     private int birthday;
     private Certificate certi;
 
-    public EmployeeInfo(String employeeNum, String name, String cl, String phoneNum, String birthday, String certi){
+    public EmployeeInfo(String employeeNum, String name, String cl, String phoneNum, String birthday, String certi) {
         this.employeeNum = Integer.parseInt(employeeNum);
         this.name = name;
         this.cl = CareerLevel.valueOf(cl);
@@ -30,6 +30,20 @@ public class EmployeeInfo {
         this.phoneNumLast = Integer.parseInt(phoneNum.split("-")[2]);
         this.birthday = Integer.parseInt(birthday);
         this.certi = Certificate.valueOf(certi);
+    }
+
+    public int getEmployeeNumYear() {
+        int year = Integer.parseInt(String.format("%08d", employeeNum).substring(0, 2));
+
+        if(year >= 69 && year <= 99 ){
+            return year + 1900;
+        }
+
+        return year + 2000;
+    }
+
+    public int getEmployeeNumExceptYear(){
+        return Integer.parseInt(String.format("%08d", employeeNum).substring(2, 8));
     }
 
     public int getEmployeeNumByInt(){
@@ -103,7 +117,6 @@ public class EmployeeInfo {
         return birthday % 100;
     }
 
-
     public String getBirthYearByString(){ return String.format( "%04d", birthday / 10000 ); }
 
     public String getBirthMonthByString(){ return String.format( "%02d", birthday / 100 % 100);
@@ -115,7 +128,6 @@ public class EmployeeInfo {
     public Certificate getCerti(){
         return certi;
     }
-
 
     public String getCertiByString(){
         return certi.toString();
