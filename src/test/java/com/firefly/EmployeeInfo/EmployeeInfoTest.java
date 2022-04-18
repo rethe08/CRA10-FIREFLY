@@ -23,6 +23,21 @@ public class EmployeeInfoTest {
         Assertions.assertEquals(30, info.getBirthDayOnly());
         Assertions.assertEquals(EmployeeInfo.Certificate.ADV, info.getCerti());
 
-        System.out.println(info.getCerti().toString());
+
+
+
+        Assertions.assertEquals("CL2", info.getClByString());
+
+
+        Assertions.assertEquals("3333", info.getPhoneNumMidByString());
+        Assertions.assertEquals("4444", info.getPhoneNumLastByString());
+
+
+        Assertions.assertEquals("1990", info.getBirthYearByString());
+        Assertions.assertEquals("01", info.getBirthMonthByString());
+        Assertions.assertEquals("30", info.getBirthDayOnlyByString());
+
+        Assertions.assertEquals("ADV", info.getCertiByString());
+
     }
 }

@@ -56,6 +56,8 @@ public class EmployeeInfo {
         return cl;
     }
 
+    public String getClByString() { return cl.toString(); }
+
     public String getPhoneNumByString() {
         return "010-" + String.format("%04d", phoneNumMid) + "-" + String.format("%04d",phoneNumLast);
     }
@@ -70,6 +72,15 @@ public class EmployeeInfo {
 
     public int getPhoneNumLast(){
         return phoneNumLast;
+    }
+
+
+    public String getPhoneNumMidByString(){
+        return String.format("%04d",phoneNumMid);
+    }
+
+    public String getPhoneNumLastByString(){
+        return String.format("%04d",phoneNumLast);
     }
 
     public String getBirthdayByString(){
@@ -92,7 +103,21 @@ public class EmployeeInfo {
         return birthday % 100;
     }
 
+
+    public String getBirthYearByString(){ return String.format( "%04d", birthday / 10000 ); }
+
+    public String getBirthMonthByString(){ return String.format( "%02d", birthday / 100 % 100);
+    }
+
+    public String getBirthDayOnlyByString(){ return String.format( "%02d", birthday % 100);
+    }
+
     public Certificate getCerti(){
         return certi;
+    }
+
+
+    public String getCertiByString(){
+        return certi.toString();
     }
 }
