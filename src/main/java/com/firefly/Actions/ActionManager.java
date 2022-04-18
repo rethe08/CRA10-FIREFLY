@@ -47,6 +47,5 @@ public class ActionManager {
         }
 
         return output;
-
     }
 }
