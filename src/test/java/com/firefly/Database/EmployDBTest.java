@@ -95,7 +95,7 @@ public class EmployDBTest {
 
         Assertions.assertEquals(11,((EmployeeDB)db).getEmpNum());
 
-        Assertions.assertEquals(3, db.delEmployeeRetToCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(3, db.delEmployeeRetToCnt("name","KIM" ,"-l"));
         Assertions.assertEquals(8,((EmployeeDB)db).getEmpNum());
 
 
@@ -129,17 +129,17 @@ public class EmployDBTest {
 
 
 
-        Assertions.assertEquals(1, db.searchEmployeeCnt("name","GILJA" ,"f"));
-        Assertions.assertEquals(3, db.searchEmployeeCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(1, db.searchEmployeeCnt("name","GILJA" ,"-f"));
+        Assertions.assertEquals(3, db.searchEmployeeCnt("name","KIM" ,"-l"));
 
 
-        Assertions.assertEquals(3, db.searchEmployeeCnt("phoneNum","3333","m" ));
-        Assertions.assertEquals(1, db.searchEmployeeCnt("phoneNum","4444","l" ));
+        Assertions.assertEquals(3, db.searchEmployeeCnt("phoneNum","3333","-m" ));
+        Assertions.assertEquals(1, db.searchEmployeeCnt("phoneNum","4444","-l" ));
 
 
-        Assertions.assertEquals(1, db.searchEmployeeCnt("birthday","1991" ,"y"));
-        Assertions.assertEquals(2, db.searchEmployeeCnt("birthday","01" ,"m"));
-        Assertions.assertEquals(11, db.searchEmployeeCnt("birthday","15" ,"d"));
+        Assertions.assertEquals(1, db.searchEmployeeCnt("birthday","1991" ,"-y"));
+        Assertions.assertEquals(2, db.searchEmployeeCnt("birthday","01" ,"-m"));
+        Assertions.assertEquals(11, db.searchEmployeeCnt("birthday","15" ,"-d"));
 
 
 
@@ -229,7 +229,7 @@ public class EmployDBTest {
 
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("name","GILJA" ,"f")){
+        for(EmployeeInfo e : db.searchEmployeeTop5("name","GILJA" ,"-f")){
             Assertions.assertEquals("GILJA",e.getFirstName());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -239,7 +239,7 @@ public class EmployDBTest {
 
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("name","KIM" ,"l")){
+        for(EmployeeInfo e : db.searchEmployeeTop5("name","KIM" ,"-l")){
             Assertions.assertEquals("KIM",e.getLastName());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -250,7 +250,7 @@ public class EmployDBTest {
 
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("phoneNum","3333","m" ) ){
+        for(EmployeeInfo e : db.searchEmployeeTop5("phoneNum","3333","-m" ) ){
             Assertions.assertEquals(3333,  e.getPhoneNumMid());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -259,7 +259,7 @@ public class EmployDBTest {
         System.out.println();
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("phoneNum","4444","l" ) ){
+        for(EmployeeInfo e : db.searchEmployeeTop5("phoneNum","4444","-l" ) ){
             Assertions.assertEquals(4444,e.getPhoneNumLast());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -271,7 +271,7 @@ public class EmployDBTest {
 
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","1991" ,"y") ){
+        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","1991" ,"-y") ){
             Assertions.assertEquals(1991,e.getBirthYear());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -280,7 +280,7 @@ public class EmployDBTest {
         System.out.println();
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","01" ,"m") ){
+        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","01" ,"-m") ){
             Assertions.assertEquals(01,e.getBirthMonth());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
@@ -289,7 +289,7 @@ public class EmployDBTest {
         System.out.println();
 
         cnt =0;
-        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","15" ,"d" ) ){
+        for(EmployeeInfo e : db.searchEmployeeTop5("birthday","15" ,"-d" ) ){
             Assertions.assertEquals(15,e.getBirthDayOnly());
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
