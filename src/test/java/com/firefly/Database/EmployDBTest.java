@@ -5,39 +5,35 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmployDBTest {
 
-    EmployeeInfo info1, info2, info3, info4, info5, info6;
-
+    List<EmployeeInfo> testEmpList = new ArrayList<>();
 
     IEmployeeDB db = new EmployeeDB();
-
-
-
 
     @BeforeEach
     void setup(){
 
-        info1 = new EmployeeInfo("10000001", "BOBBY KIM", "CL2",
-                "010-3333-7777", "19850715", "PRO");
-        info2 = new EmployeeInfo("10000002", "NA LEE", "CL2",
-                "010-1111-1321", "19770315", "PRO");
-        info3 = new EmployeeInfo("10000003", "ALL JI", "CL3",
-                "010-3333-1231", "19990115", "PRO");
-        info4 = new EmployeeInfo("10000004", "GILJA HA", "CL3",
-                "010-4444-5555", "19910215", "PRO");
-        info5 = new EmployeeInfo("10000005", "GILDONG HONG", "CL2",
-                "010-3333-4444", "19900115", "PRO");
-        info6 = new EmployeeInfo("10000006", "PIO KIM", "CL4",
-                "010-2000-1321", "19880715", "PRO");
+        testEmpList.add(new EmployeeInfo("10000001", "BOBBY KIM",    "CL2", "010-3333-7777", "19850715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000002", "NA LEE",       "CL2", "010-1111-1321", "19770315", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000003", "ALL JI",       "CL3", "010-3333-1231", "19990115", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000004", "GILJA HA",     "CL3", "010-4444-5555", "19910215", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000005", "GILDONG HONG", "CL2", "010-3333-4444", "19900115", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000006", "PIO KIM",      "CL4", "010-2000-1321", "19880715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000007", "NAMI KIM",     "CL4", "010-0000-0001", "19880715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000008", "MINO KANG",    "CL3", "010-0000-0002", "19880715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000009", "BOBBY PARK",   "CL3", "010-0000-0003", "19880715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000010", "JINA JANG",    "CL4", "010-0000-0004", "19880715", "PRO"));
+        testEmpList.add(new EmployeeInfo("10000011", "TAESUNG NA",   "CL4", "010-0000-0005", "19880715", "PRO"));
 
         ((EmployeeDB)db).clear();
-        Assertions.assertEquals (0, db.addEmployee(info1) );
-        Assertions.assertEquals (0, db.addEmployee(info2) );
-        Assertions.assertEquals (0, db.addEmployee(info3) );
-        Assertions.assertEquals (0, db.addEmployee(info4) );
-        Assertions.assertEquals (0, db.addEmployee(info5) );
-        Assertions.assertEquals (0, db.addEmployee(info6) );
+
+        for(EmployeeInfo e : testEmpList){
+            Assertions.assertEquals (0, db.addEmployee(e) );
+        }
     }
 
     @Test
@@ -52,13 +48,13 @@ public class EmployDBTest {
             cnt ++;
         }
         Assertions.assertEquals(3,cnt);
-        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals(11,((EmployeeDB)db).getEmpNum());
         System.out.println();
 
         Assertions.assertEquals(3, db.modEmployeeRetToCnt("certi","EX" ,null,"cl","CL3"));
-        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals(11,((EmployeeDB)db).getEmpNum());
 
-        Assertions.assertEquals(5, db.searchEmployeeCnt("cl","CL3",null ));
+        Assertions.assertEquals(7, db.searchEmployeeCnt("cl","CL3",null ));
 
 
     }
@@ -76,18 +72,23 @@ public class EmployDBTest {
             cnt ++;
         }
         Assertions.assertEquals(3,cnt);
-        Assertions.assertEquals(3,((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals(8,((EmployeeDB)db).getEmpNum());
         System.out.println();
 
-        db.addEmployee(info1);
-        db.addEmployee(info2);
-        db.addEmployee(info5);
+
+//        db.addEmployee(info1);
+//        db.addEmployee(info2);
+//        db.addEmployee(info5);
+
+        db.addEmployee(testEmpList.get(0));
+        db.addEmployee(testEmpList.get(1));
+        db.addEmployee(testEmpList.get(4));
 
 
-        Assertions.assertEquals(6,((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals(11,((EmployeeDB)db).getEmpNum());
 
-        Assertions.assertEquals(2, db.delEmployeeRetToCnt("name","KIM" ,"l"));
-        Assertions.assertEquals(4,((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals(3, db.delEmployeeRetToCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(8,((EmployeeDB)db).getEmpNum());
 
 
     }
@@ -95,7 +96,7 @@ public class EmployDBTest {
 
     @Test
     void addEmployeeTest(){
-        Assertions.assertEquals (6, ((EmployeeDB)db).getEmpNum());
+        Assertions.assertEquals (11, ((EmployeeDB)db).getEmpNum());
 
     }
 
@@ -110,10 +111,10 @@ public class EmployDBTest {
         Assertions.assertEquals(3, db.searchEmployeeCnt("cl","CL2" ,null));
         Assertions.assertEquals(1, db.searchEmployeeCnt("phoneNum","010-4444-5555",null ));
         Assertions.assertEquals(1, db.searchEmployeeCnt("birthday","19910215",null ));
-        Assertions.assertEquals(6, db.searchEmployeeCnt("certi","PRO",null ));
+        Assertions.assertEquals(11, db.searchEmployeeCnt("certi","PRO",null ));
 
 
-        Assertions.assertEquals(2, db.searchEmployeeCnt("cl","CL3",null ));
+        Assertions.assertEquals(4, db.searchEmployeeCnt("cl","CL3",null ));
 
 
         Assertions.assertEquals(0, db.searchEmployeeCnt("employeeNum","10000000",null ));
@@ -126,7 +127,7 @@ public class EmployDBTest {
 
 
         Assertions.assertEquals(1, db.searchEmployeeCnt("name","GILJA" ,"f"));
-        Assertions.assertEquals(2, db.searchEmployeeCnt("name","KIM" ,"l"));
+        Assertions.assertEquals(3, db.searchEmployeeCnt("name","KIM" ,"l"));
 
 
         Assertions.assertEquals(3, db.searchEmployeeCnt("phoneNum","3333","m" ));
@@ -135,7 +136,7 @@ public class EmployDBTest {
 
         Assertions.assertEquals(1, db.searchEmployeeCnt("birthday","1991" ,"y"));
         Assertions.assertEquals(2, db.searchEmployeeCnt("birthday","01" ,"m"));
-        Assertions.assertEquals(6, db.searchEmployeeCnt("birthday","15" ,"d"));
+        Assertions.assertEquals(11, db.searchEmployeeCnt("birthday","15" ,"d"));
 
 
 
@@ -240,7 +241,7 @@ public class EmployDBTest {
             System.out.println(e.getEmployeeNumByString());
             cnt ++;
         }
-        Assertions.assertEquals(2,cnt);
+        Assertions.assertEquals(3,cnt);
         System.out.println();
 
 
