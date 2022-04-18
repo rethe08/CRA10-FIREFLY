@@ -7,7 +7,8 @@ import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
 
-    private EmployeeTable empList = new EmployeeTable();
+    private EmployeeTable<EmployeeInfo> empList = EmployeeTable.getInstance();
+
 
     void clear(){
         empList.clear();
