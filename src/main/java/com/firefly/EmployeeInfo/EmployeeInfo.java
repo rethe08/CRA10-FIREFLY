@@ -32,6 +32,16 @@ public class EmployeeInfo {
         this.certi = Certificate.valueOf(certi);
     }
 
+    public String getEmployeeNum10digitsString(){
+        int year = Integer.parseInt(String.format("%08d", employeeNum).substring(0, 2));
+
+        if(year >= 69 && year <= 99 ){
+            return "19"+String.format("%08d", employeeNum);
+        }
+
+        return "20"+String.format("%08d", employeeNum);
+    }
+
     public int getEmployeeNumYear() {
         int year = Integer.parseInt(String.format("%08d", employeeNum).substring(0, 2));
 

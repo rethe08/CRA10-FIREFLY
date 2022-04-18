@@ -34,12 +34,12 @@ public class EmployeeDB implements IEmployeeDB {
 
 
 
+
     @Override
     public List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2) {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
 
-        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNumByString().compareTo( e2.getEmployeeNumByString() ) );
-
+        sortEmpList(emps);
         return emps.size() <= 5 ? emps : emps.subList(0,5);
     }
 
@@ -54,8 +54,7 @@ public class EmployeeDB implements IEmployeeDB {
             empTable.remove(e);
         }
 
-        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNumByString().compareTo( e2.getEmployeeNumByString() ) );
-
+        sortEmpList(emps);
         return emps.size() <= 5 ? emps : emps.subList(0,5);
 
     }
@@ -69,7 +68,7 @@ public class EmployeeDB implements IEmployeeDB {
             empTable.remove(e);
         }
 
-        return emps.size() <= 5 ? emps.size() : emps.subList(0,5).size();
+        return emps.size();
     }
 
 
@@ -98,9 +97,14 @@ public class EmployeeDB implements IEmployeeDB {
             empTable.add(newEmp);
         }
 
-        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNumByString().compareTo( e2.getEmployeeNumByString() ) );
-
+        sortEmpList(emps);
         return emps.size() <= 5 ? emps : emps.subList(0,5);
+    }
+
+
+    private void sortEmpList(List<EmployeeInfo> emps){
+
+        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) );
     }
 
 
