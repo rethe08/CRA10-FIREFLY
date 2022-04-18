@@ -127,9 +127,4 @@ public class SearchEmployee implements IActionEmployee {
 
         return output;
     }
-
-    @Override
-    public void printResult() {
-
-    }
 }
