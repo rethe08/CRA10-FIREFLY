@@ -184,7 +184,7 @@ public class EmployeeDB implements IEmployeeDB {
         else if(searchCol.equals("cl")){
             for(int i=0;i<empList.size();i++){
                 EmployeeInfo e = empList.get(i);
-                if(e.getCl().equals(EmployeeInfo.CareerLevel.valueOf(searchValue)))
+                if(e.getClByString().equals(searchValue) )
                     emps.add(e);
             }
 
@@ -193,14 +193,14 @@ public class EmployeeDB implements IEmployeeDB {
             if( "m".equals(option2)){
                 for(int i=0;i<empList.size();i++){
                     EmployeeInfo e = empList.get(i);
-                    if(e.getPhoneNumMid() == Integer.parseInt(searchValue) )
+                    if(e.getPhoneNumMidByString().equals(searchValue) )
                         emps.add(e);
                 }
             }
             else if("l".equals(option2)){
                 for(int i=0;i<empList.size();i++){
                     EmployeeInfo e = empList.get(i);
-                    if(e.getPhoneNumLast() == Integer.parseInt(searchValue) )
+                    if(e.getPhoneNumLastByString().equals(searchValue) )
                         emps.add(e);
                 }
 
@@ -218,14 +218,14 @@ public class EmployeeDB implements IEmployeeDB {
             if( "y".equals(option2)){
                 for(int i=0;i<empList.size();i++){
                     EmployeeInfo e = empList.get(i);
-                    if(e.getBirthYear() == Integer.parseInt(searchValue) )
+                    if(e.getBirthYearByString().equals(searchValue) )
                         emps.add(e);
                 }
             }
             else if("m".equals(option2)){
                 for(int i=0;i<empList.size();i++){
                     EmployeeInfo e = empList.get(i);
-                    if(e.getBirthMonth() == Integer.parseInt(searchValue) )
+                    if(e.getBirthMonthByString().equals(searchValue) )
                         emps.add(e);
                 }
 
@@ -233,7 +233,7 @@ public class EmployeeDB implements IEmployeeDB {
             else if("d".equals(option2)){
                 for(int i=0;i<empList.size();i++){
                     EmployeeInfo e = empList.get(i);
-                    if(e.getBirthDayOnly() == Integer.parseInt(searchValue) )
+                    if(e.getBirthDayOnlyByString().equals(searchValue) )
                         emps.add(e);
                 }
 
@@ -250,7 +250,7 @@ public class EmployeeDB implements IEmployeeDB {
         else if(searchCol.equals("certi")){
             for(int i=0;i<empList.size();i++){
                 EmployeeInfo e = empList.get(i);
-                if(e.getCerti().equals(EmployeeInfo.Certificate.valueOf(searchValue)))
+                if(e.getCertiByString().equals(searchValue))
                     emps.add(e);
             }
 
