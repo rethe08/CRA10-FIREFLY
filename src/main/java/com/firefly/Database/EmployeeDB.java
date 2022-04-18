@@ -4,11 +4,11 @@ import com.firefly.EmployeeInfo.EmployeeInfo;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class EmployeeDB implements IEmployeeDB {
 
     private EmployeeTable empTable = EmployeeTable.getInstance();
-
 
     void clear(){
         empTable.clear();
@@ -20,8 +20,8 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public int addEmployee(EmployeeInfo e) {
-        empTable.add(e);
-        return 0;
+
+        return empTable.add(e);
     }
 
 
@@ -143,126 +143,5 @@ public class EmployeeDB implements IEmployeeDB {
 
         return newEmp;
     }
-
-//
-//    private List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
-//        List<EmployeeInfo> emps = new LinkedList<>();
-//
-//        if(searchCol.equals("employeeNum")){
-//            for(int i = 0; i< empTable.size(); i++){
-//                EmployeeInfo e = empTable.get(i);
-//                if(e.getEmployeeNumByString().equals(searchValue) )
-//                    emps.add(e);
-//            }
-//        }
-//        else if(searchCol.equals("name")){
-//            if( "f".equals(option2) ){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getFirstName().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//            }
-//            else if( "l".equals(option2) ){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getLastName().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//
-//            }
-//            else{
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getName().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//
-//            }
-//
-//        }
-//        else if(searchCol.equals("cl")){
-//            for(int i = 0; i< empTable.size(); i++){
-//                EmployeeInfo e = empTable.get(i);
-//                if(e.getClByString().equals(searchValue) )
-//                    emps.add(e);
-//            }
-//
-//        }
-//        else if(searchCol.equals("phoneNum")){
-//            if( "m".equals(option2)){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getPhoneNumMidByString().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//            }
-//            else if("l".equals(option2)){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getPhoneNumLastByString().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//
-//            }
-//            else {
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if (e.getPhoneNumByString().equals(searchValue))
-//                        emps.add(e);
-//                }
-//            }
-//
-//        }
-//        else if(searchCol.equals("birthday")){
-//            if( "y".equals(option2)){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getBirthYearByString().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//            }
-//            else if("m".equals(option2)){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getBirthMonthByString().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//
-//            }
-//            else if("d".equals(option2)){
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if(e.getBirthDayOnlyByString().equals(searchValue) )
-//                        emps.add(e);
-//                }
-//
-//            }
-//            else {
-//                for(int i = 0; i< empTable.size(); i++){
-//                    EmployeeInfo e = empTable.get(i);
-//                    if (e.getBirthdayByString().equals(searchValue))
-//                        emps.add(e);
-//                }
-//            }
-//
-//        }
-//        else if(searchCol.equals("certi")){
-//            for(int i = 0; i< empTable.size(); i++){
-//                EmployeeInfo e = empTable.get(i);
-//                if(e.getCertiByString().equals(searchValue))
-//                    emps.add(e);
-//            }
-//
-//        }
-//        else{
-//            return null;
-//        }
-//
-//        return emps;
-//
-//    }
-
-
 
 }

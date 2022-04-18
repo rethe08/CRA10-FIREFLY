@@ -16,7 +16,12 @@ public class EmployDBTest {
 
     @BeforeEach
     void setup(){
+        addTest();
 
+    }
+
+    @Test
+    void addTest(){
         testEmpList.add(new EmployeeInfo("10000001", "BOBBY KIM",    "CL2", "010-3333-7777", "19850715", "PRO"));
         testEmpList.add(new EmployeeInfo("10000002", "NA LEE",       "CL2", "010-1111-1321", "19770315", "PRO"));
         testEmpList.add(new EmployeeInfo("10000003", "ALL JI",       "CL3", "010-3333-1231", "19990115", "PRO"));
@@ -34,6 +39,13 @@ public class EmployDBTest {
         for(EmployeeInfo e : testEmpList){
             Assertions.assertEquals (0, db.addEmployee(e) );
         }
+    }
+
+
+    @Test
+    void addEmployeeTest(){
+        Assertions.assertEquals (11, ((EmployeeDB)db).getEmpNum());
+
     }
 
     @Test
@@ -76,10 +88,6 @@ public class EmployDBTest {
         System.out.println();
 
 
-//        db.addEmployee(info1);
-//        db.addEmployee(info2);
-//        db.addEmployee(info5);
-
         db.addEmployee(testEmpList.get(0));
         db.addEmployee(testEmpList.get(1));
         db.addEmployee(testEmpList.get(4));
@@ -94,11 +102,6 @@ public class EmployDBTest {
     }
 
 
-    @Test
-    void addEmployeeTest(){
-        Assertions.assertEquals (11, ((EmployeeDB)db).getEmpNum());
-
-    }
 
 
 
