@@ -11,20 +11,22 @@ public class ActionManager {
         String[] inputSplit = inputCommand.split(",");
         String inputAction = inputSplit[0];
 
-        if(inputSplit.length != 6 && inputSplit.length != 8) return null;
+        if(inputSplit.length != 6 && inputSplit.length != 8 && inputSplit.length != 10) return null;
         inputValue.put("COMMAND",inputSplit[0]);
         inputValue.put("OPTION1",inputSplit[1]);
         inputValue.put("OPTION2",inputSplit[2]);
         inputValue.put("OPTION3",inputSplit[3]);
-        inputValue.put("COLUMN",inputSplit[4]);
-        inputValue.put("VALUE",inputSplit[5]);
+        inputValue.put("VALUE1",inputSplit[4]);
+        inputValue.put("VALUE2",inputSplit[5]);
 
-        if(inputValue.get("COMMAND").equals("MOD") && inputSplit.length==8){
-            inputValue.put("TobeCOLUMN",inputSplit[6]);
-            inputValue.put("TobeVALUE",inputSplit[7]);
+        if((inputValue.get("COMMAND").equals("MOD") || inputValue.get("COMMAND").equals("ADD")) && inputSplit.length==8){
+            inputValue.put("VALUE3",inputSplit[6]);
+            inputValue.put("VALUE4",inputSplit[7]);
         }
-
-
+        if(inputValue.get("COMMAND").equals("ADD") && inputSplit.length==10){
+            inputValue.put("VALUE5",inputSplit[8]);
+            inputValue.put("VALUE6",inputSplit[9]);
+        }
 
         List<String> output = null;
 
