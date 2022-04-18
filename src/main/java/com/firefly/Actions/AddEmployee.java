@@ -13,10 +13,6 @@ import java.util.List;
 public class AddEmployee implements IActionEmployee {
     private List<String> emptyList = new ArrayList();
 
-    @Override
-    public void printResult() {
-
-    }
 
     @Override
     public List<String> action(HashMap<String, String> inputCommand) {
@@ -24,4 +20,5 @@ public class AddEmployee implements IActionEmployee {
         db.addEmployee(new EmployeeInfo(inputCommand.get("VALUE1"),inputCommand.get("VALUE2"),inputCommand.get("VALUE3"),inputCommand.get("VALUE4"),inputCommand.get("VALUE5"),inputCommand.get("VALUE6")));
         return emptyList;
     }
+
 }
