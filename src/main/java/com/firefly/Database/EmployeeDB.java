@@ -69,7 +69,7 @@ public class EmployeeDB implements IEmployeeDB {
             empList.remove(e);
         }
 
-        return emps.size();
+        return emps.size() <= 5 ? emps.size() : emps.subList(0,5).size();
     }
 
 
@@ -155,13 +155,13 @@ public class EmployeeDB implements IEmployeeDB {
             }
         }
         else if(searchCol.equals("name")){
-            if( "f".equals(option2) ){
+            if( "-f".equals(option2) ){
                 for(EmployeeInfo e : empList) {
                     if(e.getFirstName().equals(searchValue) )
                         emps.add(e);
                 }
             }
-            else if( "l".equals(option2) ){
+            else if( "-l".equals(option2) ){
                 for(EmployeeInfo e : empList) {
                     if(e.getLastName().equals(searchValue) )
                         emps.add(e);
@@ -185,13 +185,13 @@ public class EmployeeDB implements IEmployeeDB {
 
         }
         else if(searchCol.equals("phoneNum")){
-            if( "m".equals(option2)){
+            if( "-m".equals(option2)){
                 for(EmployeeInfo e : empList) {
                     if(e.getPhoneNumMid() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
             }
-            else if("l".equals(option2)){
+            else if("-l".equals(option2)){
                 for(EmployeeInfo e : empList) {
                     if(e.getPhoneNumLast() == Integer.parseInt(searchValue) )
                         emps.add(e);
@@ -207,20 +207,20 @@ public class EmployeeDB implements IEmployeeDB {
 
         }
         else if(searchCol.equals("birthday")){
-            if( "y".equals(option2)){
+            if( "-y".equals(option2)){
                 for(EmployeeInfo e : empList) {
                     if(e.getBirthYear() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
             }
-            else if("m".equals(option2)){
+            else if("-m".equals(option2)){
                 for(EmployeeInfo e : empList) {
                     if(e.getBirthMonth() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
 
             }
-            else if("d".equals(option2)){
+            else if("-d".equals(option2)){
                 for(EmployeeInfo e : empList) {
                     if(e.getBirthDayOnly() == Integer.parseInt(searchValue) )
                         emps.add(e);

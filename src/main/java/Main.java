@@ -5,13 +5,11 @@ public class Main {
 
     public static void main(String[] args){
 
-        if (isValidFile(args[0]) && isValidFile(args[1]))
-        {
+        if (isValidFile(args[0]) && isValidFile(args[1])) {
             new EmpManager().doProcess(args[0], args[1]);
+        } else {
+            System.out.println("Sorry. Please check your input file");
         }
-
-        System.out.println("Sorry. Please check your input file");
-
     }
 
     static boolean isValidFile(String arg) {
