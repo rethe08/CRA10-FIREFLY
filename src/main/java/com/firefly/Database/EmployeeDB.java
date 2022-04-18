@@ -69,7 +69,7 @@ public class EmployeeDB implements IEmployeeDB {
             empTable.remove(e);
         }
 
-        return emps.size();
+        return emps.size() <= 5 ? emps.size() : emps.subList(0,5).size();
     }
 
 
