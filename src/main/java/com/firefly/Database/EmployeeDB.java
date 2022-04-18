@@ -2,19 +2,18 @@ package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
 
-    static List<EmployeeInfo> empList = new ArrayList<>();
+    private EmployeeTable empList = new EmployeeTable();
 
-    public void clear(){
+    void clear(){
         empList.clear();
     }
 
-    public int getEmpNum(){
+    int getEmpNum(){
         return empList.size();
     }
 
@@ -149,27 +148,31 @@ public class EmployeeDB implements IEmployeeDB {
         List<EmployeeInfo> emps = new LinkedList<>();
 
         if(searchCol.equals("employeeNum")){
-            for(EmployeeInfo e : empList) {
+            for(int i=0;i<empList.size();i++){
+                EmployeeInfo e = empList.get(i);
                 if(e.getEmployeeNumByString().equals(searchValue) )
                     emps.add(e);
             }
         }
         else if(searchCol.equals("name")){
             if( "f".equals(option2) ){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getFirstName().equals(searchValue) )
                         emps.add(e);
                 }
             }
             else if( "l".equals(option2) ){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getLastName().equals(searchValue) )
                         emps.add(e);
                 }
 
             }
             else{
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getName().equals(searchValue) )
                         emps.add(e);
                 }
@@ -178,7 +181,8 @@ public class EmployeeDB implements IEmployeeDB {
 
         }
         else if(searchCol.equals("cl")){
-            for(EmployeeInfo e : empList) {
+            for(int i=0;i<empList.size();i++){
+                EmployeeInfo e = empList.get(i);
                 if(e.getCl().equals(EmployeeInfo.CareerLevel.valueOf(searchValue)))
                     emps.add(e);
             }
@@ -186,20 +190,23 @@ public class EmployeeDB implements IEmployeeDB {
         }
         else if(searchCol.equals("phoneNum")){
             if( "m".equals(option2)){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getPhoneNumMid() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
             }
             else if("l".equals(option2)){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getPhoneNumLast() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
 
             }
             else {
-                for (EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if (e.getPhoneNumByString().equals(searchValue))
                         emps.add(e);
                 }
@@ -208,27 +215,31 @@ public class EmployeeDB implements IEmployeeDB {
         }
         else if(searchCol.equals("birthday")){
             if( "y".equals(option2)){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getBirthYear() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
             }
             else if("m".equals(option2)){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getBirthMonth() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
 
             }
             else if("d".equals(option2)){
-                for(EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if(e.getBirthDayOnly() == Integer.parseInt(searchValue) )
                         emps.add(e);
                 }
 
             }
             else {
-                for (EmployeeInfo e : empList) {
+                for(int i=0;i<empList.size();i++){
+                    EmployeeInfo e = empList.get(i);
                     if (e.getBirthdayByString().equals(searchValue))
                         emps.add(e);
                 }
@@ -236,7 +247,8 @@ public class EmployeeDB implements IEmployeeDB {
 
         }
         else if(searchCol.equals("certi")){
-            for(EmployeeInfo e : empList) {
+            for(int i=0;i<empList.size();i++){
+                EmployeeInfo e = empList.get(i);
                 if(e.getCerti().equals(EmployeeInfo.Certificate.valueOf(searchValue)))
                     emps.add(e);
             }
