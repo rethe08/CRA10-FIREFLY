@@ -69,20 +69,24 @@ class EmployeeTable  {
             allEmps.remove(e);
             empsTop5.remove(e);
 
-            if( empsTop5.size() == 4 ) {
-                if(allEmps.size() == 4 ) {
-                    continue ;
-                }
-
-                EmployeeInfo minEmp = getMinEmployeeInfoNotInTop5(allEmps, empsTop5);
-
-                if(minEmp != null) {
-                    empsTop5.add(minEmp);
-                }
-            }
+            addInTop5IfRemoved(allEmps, empsTop5);
         }
         return 0;
 
+    }
+
+    private void addInTop5IfRemoved(List<EmployeeInfo> allEmps, List<EmployeeInfo> empsTop5) {
+        if( empsTop5.size() == 4 ) {
+            if(allEmps.size() == 4 ) {
+                return;
+            }
+
+            EmployeeInfo minEmp = getMinEmployeeInfoNotInTop5(allEmps, empsTop5);
+
+            if(minEmp != null) {
+                empsTop5.add(minEmp);
+            }
+        }
     }
 
     private EmployeeInfo getMinEmployeeInfoNotInTop5(List<EmployeeInfo> allEmps, List<EmployeeInfo> empsTop5) {
@@ -119,12 +123,12 @@ class EmployeeTable  {
             eList.add(e);
         }
 
-        addInTop5(e);
+        addInAllTop5(e);
         return 0;
     }
 
 
-    private int addInTop5(EmployeeInfo e) {
+    private int addInAllTop5(EmployeeInfo e) {
 
         List<EmployeeInfo> eListTop5 = null;
         EmployeeInfo maxTopEmp = null;
@@ -174,10 +178,12 @@ class EmployeeTable  {
         return empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList<>()).stream().collect(Collectors.toList());
     }
 
-    List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2){
+    List<EmployeeInfo> searchEmployeeTop5Sorted(String searchCol, String searchValue, String option2){
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
-        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList<>()).stream().collect(Collectors.toList());
+        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList<>())
+                .stream().sorted((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) )
+                .collect(Collectors.toList());
 
     }
 
