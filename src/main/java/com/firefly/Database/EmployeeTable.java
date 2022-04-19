@@ -69,30 +69,12 @@ class EmployeeTable  {
             allEmps.remove(e);
             empsTop5.remove(e);
 
-
-
-
             if( empsTop5.size() == 4 ) {
                 if(allEmps.size() == 4 ) {
                     continue ;
                 }
-                EmployeeInfo minEmp = null;
 
-                for(EmployeeInfo candEmp : allEmps){
-                    if(empsTop5.contains(candEmp)) {
-                        continue;
-                    }
-
-                    if(minEmp==null) {
-                        minEmp = candEmp;
-                        continue;
-                    }
-
-                    if(candEmp.getEmployeeNum10digitsString().compareTo(minEmp.getEmployeeNum10digitsString()) < 0){
-                        minEmp = candEmp;
-                    }
-
-                }
+                EmployeeInfo minEmp = getMinEmployeeInfoNotInTop5(allEmps, empsTop5);
 
                 if(minEmp != null) {
                     empsTop5.add(minEmp);
@@ -103,6 +85,26 @@ class EmployeeTable  {
 
     }
 
+    private EmployeeInfo getMinEmployeeInfoNotInTop5(List<EmployeeInfo> allEmps, List<EmployeeInfo> empsTop5) {
+        EmployeeInfo minEmp = null;
+
+        for(EmployeeInfo candEmp : allEmps){
+            if(empsTop5.contains(candEmp)) {
+                continue;
+            }
+
+            if(minEmp==null) {
+                minEmp = candEmp;
+                continue;
+            }
+
+            if(candEmp.getEmployeeNum10digitsString().compareTo(minEmp.getEmployeeNum10digitsString()) < 0){
+                minEmp = candEmp;
+            }
+
+        }
+        return minEmp;
+    }
 
 
     public int add(EmployeeInfo e) {
@@ -140,16 +142,7 @@ class EmployeeTable  {
 
             }
             else{
-                maxTopEmp = null;
-                for(EmployeeInfo candEmp : eListTop5){
-                    if(maxTopEmp==null) maxTopEmp = candEmp;
-                    else{
-                        if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
-                            maxTopEmp = candEmp;
-                        }
-                    }
-
-                }
+                maxTopEmp = getMaxEmployeeInfoInTop5(eListTop5);
                 if(maxTopEmp != null && e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
                 {
                     eListTop5.remove(maxTopEmp);
@@ -159,6 +152,19 @@ class EmployeeTable  {
             }
         }
         return 0;
+    }
+
+    private EmployeeInfo getMaxEmployeeInfoInTop5(List<EmployeeInfo> eListTop5) {
+        EmployeeInfo maxTopEmp = null;
+        for(EmployeeInfo candEmp : eListTop5){
+            if(maxTopEmp==null) maxTopEmp = candEmp;
+            else{
+                if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
+                    maxTopEmp = candEmp;
+                }
+            }
+        }
+        return maxTopEmp;
     }
 
 
