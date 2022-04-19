@@ -42,6 +42,16 @@ public class EmployeeInfo {
         return "20"+String.format("%08d", employeeNum);
     }
 
+    public int getEmployeeNum10digitsInt(){
+        int year = Integer.parseInt(String.format("%08d", employeeNum).substring(0, 2));
+
+        if(year >= 69 && year <= 99 ){
+            return employeeNum + 1900000000;
+        }
+
+        return employeeNum + 2000000000;
+    }
+
     public int getEmployeeNumYear() {
         int year = Integer.parseInt(String.format("%08d", employeeNum).substring(0, 2));
 
