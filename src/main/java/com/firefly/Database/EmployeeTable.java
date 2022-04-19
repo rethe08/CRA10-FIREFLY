@@ -113,14 +113,14 @@ class EmployeeTable  {
 
     public int add(EmployeeInfo e) {
 
-        List<EmployeeInfo> eList = null;
+        List<EmployeeInfo> emps = null;
         for(EmployeeSelectColumn empSelCol : selectColList){
-            eList = empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
-            if( eList ==null) {
-                eList = new ArrayList<>();
-                empTableMap.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),eList);
+            emps = empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
+            if( emps ==null) {
+                emps = new LinkedList<>();
+                empTableMap.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),emps);
             }
-            eList.add(e);
+            emps.add(e);
         }
 
         addInAllTop5(e);
@@ -130,27 +130,27 @@ class EmployeeTable  {
 
     private int addInAllTop5(EmployeeInfo e) {
 
-        List<EmployeeInfo> eListTop5 = null;
+        List<EmployeeInfo> empsTop5 = null;
         EmployeeInfo maxTopEmp = null;
         for(EmployeeSelectColumn empSelCol : selectColList){
 
-            eListTop5 = empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
+            empsTop5 = empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
 
-            if( eListTop5 == null) {
-                eListTop5 = new ArrayList<>();
-                empTableMapTop5.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e), eListTop5);
-                eListTop5.add(e);
+            if( empsTop5 == null) {
+                empsTop5 = new LinkedList<>();
+                empTableMapTop5.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e), empsTop5);
+                empsTop5.add(e);
             }
-            else if(eListTop5.size()<5){
-                eListTop5.add(e);
+            else if(empsTop5.size()<5){
+                empsTop5.add(e);
 
             }
             else{
-                maxTopEmp = getMaxEmployeeInfoInTop5(eListTop5);
+                maxTopEmp = getMaxEmployeeInfoInTop5(empsTop5);
                 if(maxTopEmp != null && e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
                 {
-                    eListTop5.remove(maxTopEmp);
-                    eListTop5.add(e);
+                    empsTop5.remove(maxTopEmp);
+                    empsTop5.add(e);
                 }
 
             }
@@ -175,13 +175,13 @@ class EmployeeTable  {
     List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
-        return empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList<>()).stream().collect(Collectors.toList());
+        return empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedList<>()).stream().collect(Collectors.toList());
     }
 
     List<EmployeeInfo> searchEmployeeTop5Sorted(String searchCol, String searchValue, String option2){
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
-        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList<>())
+        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedList<>())
                 .stream().sorted((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) )
                 .collect(Collectors.toList());
 
