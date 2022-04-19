@@ -22,9 +22,12 @@ public class DelEmployee implements IActionEmployee {
                 ret.add("DEL," + temp.getEmployeeNumByString() + "," + temp.getName() + "," + temp.getCl() + "," + temp.getPhoneNumByString() + "," + temp.getBirthdayByString() + "," + temp.getCerti());
             }
         } else {
-            ret.add("DEL,"+ db.delEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2")));
+            int count = db.delEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2"));
+            if(count != 0)
+                ret.add("DEL," + count);
         }
-        if(ret.isEmpty() || (ret.size()==1 && ret.get(0).equals("DEL,0"))){
+
+        if(ret.isEmpty()){
             ret.add("DEL,NONE");
         }
         return ret;
