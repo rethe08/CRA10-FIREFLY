@@ -102,7 +102,7 @@ class EmployeeTable  {
                 continue;
             }
 
-            if(candEmp.getEmployeeNum10digitsString().compareTo(minEmp.getEmployeeNum10digitsString()) < 0){
+            if(candEmp.getEmployeeNum10digitsInt() <  minEmp.getEmployeeNum10digitsInt() ){
                 minEmp = candEmp;
             }
 
@@ -147,7 +147,7 @@ class EmployeeTable  {
             }
             else{
                 maxTopEmp = getMaxEmployeeInfoInTop5(empsTop5);
-                if(maxTopEmp != null && e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
+                if(maxTopEmp != null && e.getEmployeeNum10digitsInt() < maxTopEmp.getEmployeeNum10digitsInt())
                 {
                     empsTop5.remove(maxTopEmp);
                     empsTop5.add(e);
@@ -163,7 +163,7 @@ class EmployeeTable  {
         for(EmployeeInfo candEmp : empsTop5){
             if(maxTopEmp==null) maxTopEmp = candEmp;
             else{
-                if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
+                if(candEmp.getEmployeeNum10digitsInt() > maxTopEmp.getEmployeeNum10digitsInt() ){
                     maxTopEmp = candEmp;
                 }
             }
@@ -182,7 +182,7 @@ class EmployeeTable  {
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
         return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedHashSet<>())
-                .stream().sorted((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) )
+                .stream().sorted((EmployeeInfo e1, EmployeeInfo e2) -> Integer.compare(e1.getEmployeeNum10digitsInt() , e2.getEmployeeNum10digitsInt() ) )
                 .collect(Collectors.toList());
 
     }
