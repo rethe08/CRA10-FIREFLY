@@ -192,7 +192,7 @@ class EmployeeTable  {
 
     List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
 
-        String searchColWithOption = searchCol + (option2==null?"":""+option2);
+        String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
         return (List<EmployeeInfo>) empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList()).stream().collect(Collectors.toList());
     }
 
