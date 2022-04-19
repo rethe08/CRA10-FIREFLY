@@ -10,7 +10,7 @@ class EmployeeTable  {
     private static final EmployeeTable empTable = new EmployeeTable();
 
     private final Map<String, Map<String, List<EmployeeInfo>>> empTableMap = new HashMap<>(); // employeeNum -> "11111111" -> (emp1, emp2, ...)
-
+    private final Map<String, Map<String, List<EmployeeInfo>>> empTableMapTop5 = new HashMap<>(); // employeeNum -> "11111111" -> (emp1, emp2, ...)
 
     static EmployeeTable getInstance(){
         return empTable;
@@ -48,8 +48,10 @@ class EmployeeTable  {
 
     public void clear() {
         empTableMap.clear();
+        empTableMapTop5.clear();
         for(EmployeeSelectColumn selectColumn : selectColList){
             empTableMap.put(selectColumn.selectColumnName, new HashMap<String, List<EmployeeInfo>>());
+            empTableMapTop5.put(selectColumn.selectColumnName, new HashMap<String, List<EmployeeInfo>>());
         }
     }
 
@@ -65,6 +67,7 @@ class EmployeeTable  {
 
         for(EmployeeSelectColumn empSelCol : selectColList){
             empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e)).remove(e);
+            empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e)).remove(e);
         }
 
     }
@@ -80,8 +83,37 @@ class EmployeeTable  {
             }
             eList.add(e);
         }
+
+        addInTop5(e);
         return 0;
 
+    }
+
+    private void addInTop5(EmployeeInfo e) {
+
+        List<EmployeeInfo> eListTop5 = null;
+        for(EmployeeSelectColumn empSelCol : selectColList){
+
+            eListTop5 = empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
+            if( eListTop5 ==null) {
+                eListTop5 = new ArrayList<>();
+                empTableMapTop5.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),eListTop5);
+                eListTop5.add(e);
+            }
+            else if(eListTop5.size()<5){
+                eListTop5.add(e);
+
+            }
+            else{
+                for(EmployeeInfo empToReplace : eListTop5){
+                    if(e.getEmployeeNum10digitsString().compareTo(empToReplace.getEmployeeNum10digitsString()) < 0){
+                        eListTop5.remove(empToReplace);
+                        eListTop5.add(e);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 
@@ -89,6 +121,12 @@ class EmployeeTable  {
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
         return (List<EmployeeInfo>) empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList()).stream().collect(Collectors.toList());
+    }
+
+    List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2){
+
+        String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
+        return (List<EmployeeInfo>) empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList()).stream().collect(Collectors.toList());
     }
 
 

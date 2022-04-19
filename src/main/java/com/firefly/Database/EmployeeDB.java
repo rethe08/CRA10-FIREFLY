@@ -37,10 +37,10 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2) {
-        List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
 
-        sortEmpList(emps);
-        return emps.size() <= 5 ? emps : emps.subList(0,5);
+        sortEmpList(empsTop5);
+        return empsTop5;
     }
 
 
@@ -49,13 +49,14 @@ public class EmployeeDB implements IEmployeeDB {
     public List<EmployeeInfo> delEmployeeRetToTop5(String searchCol, String searchValue, String option2) {
 
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
 
         for(EmployeeInfo e : emps){
             empTable.remove(e);
         }
 
-        sortEmpList(emps);
-        return emps.size() <= 5 ? emps : emps.subList(0,5);
+        sortEmpList(empsTop5);
+        return empsTop5;
 
     }
 
@@ -90,6 +91,7 @@ public class EmployeeDB implements IEmployeeDB {
     @Override
     public List<EmployeeInfo> modEmployeeRetToTop5(String searchCol, String searchValue, String option2, String modCol, String modValue) {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
 
         for(EmployeeInfo e : emps){
             empTable.remove(e);
@@ -97,8 +99,8 @@ public class EmployeeDB implements IEmployeeDB {
             empTable.add(newEmp);
         }
 
-        sortEmpList(emps);
-        return emps.size() <= 5 ? emps : emps.subList(0,5);
+        sortEmpList(empsTop5);
+        return empsTop5;
     }
 
 
