@@ -9,8 +9,8 @@ class EmployeeTable  {
 
     private static final EmployeeTable empTable = new EmployeeTable();
 
-    private final Map<String, Map<String, List<EmployeeInfo>>> empTableMap = new HashMap<>();
-    private final Map<String, Map<String, List<EmployeeInfo>>> empTableMapTop5 = new HashMap<>();
+    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMap = new HashMap<>();
+    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMapTop5 = new HashMap<>();
 
 
     private EmployeeTable(){
@@ -42,14 +42,14 @@ class EmployeeTable  {
         empTableMap.clear();
         empTableMapTop5.clear();
         for(EmployeeSelectColumn selectColumn : selectColList){
-            empTableMap.put(selectColumn.selectColumnName, new HashMap<String, List<EmployeeInfo>>());
-            empTableMapTop5.put(selectColumn.selectColumnName, new HashMap<String, List<EmployeeInfo>>());
+            empTableMap.put(selectColumn.selectColumnName, new HashMap<String, Set<EmployeeInfo>>());
+            empTableMapTop5.put(selectColumn.selectColumnName, new HashMap<String, Set<EmployeeInfo>>());
         }
     }
 
     public int size() {
         int retSize = 0;
-        for(List<EmployeeInfo> l: empTableMap.get("employeeNum").values()){
+        for(Set<EmployeeInfo> l: empTableMap.get("employeeNum").values()){
             retSize+=l.size();
         }
         return retSize;
@@ -58,8 +58,8 @@ class EmployeeTable  {
 
     public int remove(EmployeeInfo e) {
 
-        List<EmployeeInfo> allEmps=null;
-        List<EmployeeInfo> empsTop5=null;
+        Set<EmployeeInfo> allEmps=null;
+        Set<EmployeeInfo> empsTop5=null;
 
         for(EmployeeSelectColumn empSelCol : selectColList){
 
@@ -75,7 +75,7 @@ class EmployeeTable  {
 
     }
 
-    private void addInTop5IfRemoved(List<EmployeeInfo> allEmps, List<EmployeeInfo> empsTop5) {
+    private void addInTop5IfRemoved(Set<EmployeeInfo> allEmps, Set<EmployeeInfo> empsTop5) {
         if( empsTop5.size() == 4 ) {
             if(allEmps.size() == 4 ) {
                 return;
@@ -89,7 +89,7 @@ class EmployeeTable  {
         }
     }
 
-    private EmployeeInfo getMinEmployeeInfoNotInTop5(List<EmployeeInfo> allEmps, List<EmployeeInfo> empsTop5) {
+    private EmployeeInfo getMinEmployeeInfoNotInTop5(Set<EmployeeInfo> allEmps, Set<EmployeeInfo> empsTop5) {
         EmployeeInfo minEmp = null;
 
         for(EmployeeInfo candEmp : allEmps){
@@ -113,11 +113,11 @@ class EmployeeTable  {
 
     public int add(EmployeeInfo e) {
 
-        List<EmployeeInfo> emps = null;
+        Set<EmployeeInfo> emps = null;
         for(EmployeeSelectColumn empSelCol : selectColList){
             emps = empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
             if( emps ==null) {
-                emps = new LinkedList<>();
+                emps = new LinkedHashSet<>();
                 empTableMap.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),emps);
             }
             emps.add(e);
@@ -130,14 +130,14 @@ class EmployeeTable  {
 
     private int addInAllTop5(EmployeeInfo e) {
 
-        List<EmployeeInfo> empsTop5 = null;
+        Set<EmployeeInfo> empsTop5 = null;
         EmployeeInfo maxTopEmp = null;
         for(EmployeeSelectColumn empSelCol : selectColList){
 
             empsTop5 = empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
 
             if( empsTop5 == null) {
-                empsTop5 = new LinkedList<>();
+                empsTop5 = new LinkedHashSet<>();
                 empTableMapTop5.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e), empsTop5);
                 empsTop5.add(e);
             }
@@ -158,9 +158,9 @@ class EmployeeTable  {
         return 0;
     }
 
-    private EmployeeInfo getMaxEmployeeInfoInTop5(List<EmployeeInfo> eListTop5) {
+    private EmployeeInfo getMaxEmployeeInfoInTop5(Set<EmployeeInfo> empsTop5) {
         EmployeeInfo maxTopEmp = null;
-        for(EmployeeInfo candEmp : eListTop5){
+        for(EmployeeInfo candEmp : empsTop5){
             if(maxTopEmp==null) maxTopEmp = candEmp;
             else{
                 if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
@@ -175,13 +175,13 @@ class EmployeeTable  {
     List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
-        return empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedList<>()).stream().collect(Collectors.toList());
+        return empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedHashSet<>()).stream().collect(Collectors.toList());
     }
 
     List<EmployeeInfo> searchEmployeeTop5Sorted(String searchCol, String searchValue, String option2){
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
-        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedList<>())
+        return empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new LinkedHashSet<>())
                 .stream().sorted((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) )
                 .collect(Collectors.toList());
 
