@@ -26,8 +26,12 @@ public class SearchEmployee implements IActionEmployee {
                             emp.getCerti().name()));
         }
         else {
-            output.add("SCH," + db.searchEmployeeCnt(
-                    inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2")));
+            int count = db.searchEmployeeCnt(
+                    inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2"));
+
+            if(count != 0) {
+                output.add("SCH," + count);
+            }
         }
 
         if(output.size() == 0){
