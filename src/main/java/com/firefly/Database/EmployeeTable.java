@@ -16,21 +16,20 @@ class EmployeeTable  {
         return empTable;
     }
 
-
-    interface  ExecuteMapper{
+    private interface  SelectExecuteMapper{
         String getColumnDataFromEmployee(EmployeeInfo e);
     }
 
-    class EmployeeSelectColumn {
+    private class EmployeeSelectColumn {
         String selectColumnName;
-        ExecuteMapper executeMapper;
-        EmployeeSelectColumn(String selectColumnName, ExecuteMapper executeMapper){
+        SelectExecuteMapper exeMap;
+        EmployeeSelectColumn(String selectColumnName, SelectExecuteMapper executeMapper){
             this.selectColumnName = selectColumnName;
-            this.executeMapper = executeMapper;
+            this.exeMap = executeMapper;
         }
     }
 
-    List<EmployeeSelectColumn> selectColList = Arrays.asList(
+    private List<EmployeeSelectColumn> selectColList = Arrays.asList(
             new EmployeeSelectColumn("employeeNum",EmployeeInfo::getEmployeeNumByString ),
             new EmployeeSelectColumn("name",EmployeeInfo::getName ),
             new EmployeeSelectColumn("name-f",EmployeeInfo::getFirstName ),
@@ -44,20 +43,7 @@ class EmployeeTable  {
             new EmployeeSelectColumn("birthday-m",EmployeeInfo::getBirthMonthByString ),
             new EmployeeSelectColumn("birthday-d",EmployeeInfo::getBirthDayOnlyByString ),
             new EmployeeSelectColumn("certi",EmployeeInfo::getCertiByString )
-
-
     );
-
-
-
-    String getColumnDataFromEmployee(EmployeeInfo e, EmployeeSelectColumn selectColumnName){
-
-        ExecuteMapper exe = selectColumnName.executeMapper;
-        return exe.getColumnDataFromEmployee(e);
-    }
-
-
-
 
 
     public void clear() {
@@ -75,33 +61,25 @@ class EmployeeTable  {
         return retSize;
     }
 
-
-
     public void remove(EmployeeInfo e) {
 
-
         for(EmployeeSelectColumn empSelCol : selectColList){
-            empTableMap.get(empSelCol.selectColumnName).get(getColumnDataFromEmployee(e,empSelCol)).remove(e);
+            empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e)).remove(e);
         }
 
     }
-
-
-
-
 
     public int add(EmployeeInfo e) {
 
         List<EmployeeInfo> eList = null;
         for(EmployeeSelectColumn empSelCol : selectColList){
-            eList = empTableMap.get(empSelCol.selectColumnName).get(getColumnDataFromEmployee(e,empSelCol));
+            eList = empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
             if( eList ==null) {
                 eList = new ArrayList();
-                empTableMap.get(empSelCol.selectColumnName).put(getColumnDataFromEmployee(e,empSelCol),eList);
+                empTableMap.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),eList);
             }
             eList.add(e);
         }
-
         return 0;
 
     }
