@@ -22,9 +22,12 @@ public class ModEmployee implements IActionEmployee {
                 ret.add("MOD," + temp.getEmployeeNumByString() + "," + temp.getName() + "," + temp.getCl() + "," + temp.getPhoneNumByString() + "," + temp.getBirthdayByString() + "," + temp.getCerti());
             }
         } else {
-            ret.add("MOD,"+ db.modEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2"),inputCommand.get("VALUE3"),inputCommand.get("VALUE4")));
-        }
-        if(ret.isEmpty() ||(ret.size()==1 && ret.get(0).equals("MOD,0"))){
+            int count = db.modEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2"),inputCommand.get("VALUE3"),inputCommand.get("VALUE4"));
+            if(count != 0)
+                ret.add("MOD," + count);
+            }
+
+        if(ret.isEmpty()){
             ret.add("MOD,NONE");
         }
         return ret;
