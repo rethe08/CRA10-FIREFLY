@@ -24,6 +24,9 @@ public class DelEmployee implements IActionEmployee {
         } else {
             ret.add("DEL,"+ db.delEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2")));
         }
+        if(ret.isEmpty() || (ret.size()==1 && ret.get(0).equals("DEL,0"))){
+            ret.add("DEL,NONE");
+        }
         return ret;
     }
 }
