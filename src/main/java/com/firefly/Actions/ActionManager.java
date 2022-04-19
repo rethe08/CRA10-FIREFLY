@@ -19,7 +19,7 @@ public class ActionManager {
         inputValue.put("VALUE1",inputSplit[4]);
         inputValue.put("VALUE2",inputSplit[5]);
 
-        if((inputValue.get("COMMAND").equals("MOD")&& inputSplit.length==8 || inputValue.get("COMMAND").equals("ADD"))  && inputSplit.length==10){
+        if((inputValue.get("COMMAND").equals("MOD") && inputSplit.length==8 || inputValue.get("COMMAND").equals("ADD")) && inputSplit.length==10){
             inputValue.put("VALUE3",inputSplit[6]);
             inputValue.put("VALUE4",inputSplit[7]);
         }
