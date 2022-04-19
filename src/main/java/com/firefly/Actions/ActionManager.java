@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ActionManager {
-    public List<String> action(String inputCommand) {
+    public List<String> action(String inputCommand, IActionEmployee actor) {
 
         HashMap<String, String> inputValue = new HashMap<>();
 
@@ -28,24 +28,6 @@ public class ActionManager {
             inputValue.put("VALUE6",inputSplit[9]);
         }
 
-        List<String> output = null;
-
-        switch (inputAction){
-            case "ADD":
-                output=new AddEmployee().action(inputValue);
-                break;
-            case "DEL":
-                output=new DelEmployee().action(inputValue);
-                break;
-            case "SCH":
-                output=new SearchEmployee().action(inputValue);
-                break;
-            case "MOD":
-                output=new ModEmployee().action(inputValue);
-                break;
-            default:
-        }
-
-        return output;
+        return actor.action(inputValue);
     }
 }
