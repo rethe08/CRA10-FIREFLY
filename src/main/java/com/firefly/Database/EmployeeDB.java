@@ -2,9 +2,7 @@ package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class EmployeeDB implements IEmployeeDB {
 
@@ -93,9 +91,10 @@ public class EmployeeDB implements IEmployeeDB {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
         List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
 
+        EmployeeInfo newEmp = null;
         for(EmployeeInfo e : emps){
             empTable.remove(e);
-            EmployeeInfo newEmp = makeNewModifiedEmployee(e,modCol,modValue);
+            newEmp = makeNewModifiedEmployee(e,modCol,modValue);
             empTable.add(newEmp);
         }
 
@@ -111,7 +110,7 @@ public class EmployeeDB implements IEmployeeDB {
 
 
     private EmployeeInfo makeNewModifiedEmployee(EmployeeInfo e, String modCol, String modValue){
-        EmployeeInfo newEmp ;
+        EmployeeInfo newEmp = null ;
         if(modCol.equals("employeeNum")){
             newEmp = new EmployeeInfo(modValue, e.getName(), e.getCl().toString(),
                                     e.getPhoneNumByString(), e.getBirthdayByString(), e.getCerti().toString());
