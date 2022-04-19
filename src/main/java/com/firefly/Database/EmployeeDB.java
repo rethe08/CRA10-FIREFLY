@@ -75,10 +75,11 @@ public class EmployeeDB implements IEmployeeDB {
     @Override
     public int modEmployeeRetToCnt(String searchCol, String searchValue,String option2, String modCol, String modValue) {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
+        EmployeeInfo newEmp = null;
 
         for(EmployeeInfo e : emps){
             empTable.remove(e);
-            EmployeeInfo newEmp = makeNewModifiedEmployee(e,modCol,modValue);
+            newEmp = makeNewModifiedEmployee(e,modCol,modValue);
             empTable.add(newEmp);
         }
 

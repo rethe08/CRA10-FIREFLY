@@ -56,7 +56,7 @@ class EmployeeTable  {
     }
 
 
-    public void remove(EmployeeInfo e) {
+    public int remove(EmployeeInfo e) {
 
         List<EmployeeInfo> allEmps=null;
         List<EmployeeInfo> empsTop5=null;
@@ -74,34 +74,32 @@ class EmployeeTable  {
 
             if( empsTop5.size() == 4 ) {
                 if(allEmps.size() == 4 ) {
-                    return;
+                    continue ;
                 }
-                EmployeeInfo minTopEmp = null;
+                EmployeeInfo minEmp = null;
 
                 for(EmployeeInfo candEmp : allEmps){
                     if(empsTop5.contains(candEmp)) {
                         continue;
                     }
 
-                    if(minTopEmp==null) {
-                        minTopEmp = candEmp;
+                    if(minEmp==null) {
+                        minEmp = candEmp;
                         continue;
                     }
 
-                    if(candEmp.getEmployeeNum10digitsString().compareTo(minTopEmp.getEmployeeNum10digitsString()) < 0){
-                        minTopEmp = candEmp;
+                    if(candEmp.getEmployeeNum10digitsString().compareTo(minEmp.getEmployeeNum10digitsString()) < 0){
+                        minEmp = candEmp;
                     }
 
                 }
 
-                if(minTopEmp != null) {
-                    addInTop5(minTopEmp);
-                }
-                else {
-                    return ;
+                if(minEmp != null) {
+                    empsTop5.add(minEmp);
                 }
             }
         }
+        return 0;
 
     }
 
@@ -121,11 +119,10 @@ class EmployeeTable  {
 
         addInTop5(e);
         return 0;
-
     }
 
 
-    private void addInTop5(EmployeeInfo e) {
+    private int addInTop5(EmployeeInfo e) {
 
         List<EmployeeInfo> eListTop5 = null;
         EmployeeInfo maxTopEmp = null;
@@ -153,16 +150,15 @@ class EmployeeTable  {
                     }
 
                 }
-                if( maxTopEmp == null) return ;
-                if(e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
+                if(maxTopEmp != null && e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
                 {
-                    if(maxTopEmp == null) return;
                     eListTop5.remove(maxTopEmp);
                     eListTop5.add(e);
                 }
 
             }
         }
+        return 0;
     }
 
 
