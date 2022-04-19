@@ -1,6 +1,7 @@
 package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
+import javafx.collections.transformation.SortedList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -9,8 +10,9 @@ class EmployeeTable  {
 
     private static final EmployeeTable empTable = new EmployeeTable();
 
-    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMap = new HashMap<>(); // employeeNum -> "11111111" -> (emp1, emp2, ...)
-    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMapTop5 = new HashMap<>(); // employeeNum -> "11111111" -> (emp1, emp2, ...)
+    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMap = new HashMap<>();
+    private final Map<String, Map<String, Set<EmployeeInfo>>> empTableMapTop5 = new HashMap<>();
+
 
     private EmployeeTable(){
         clear();
@@ -78,26 +80,25 @@ class EmployeeTable  {
 
     void removeTop5(Set<EmployeeInfo> allEmps,Set<EmployeeInfo> empsTop5){
 
-        EmployeeInfo maxTopEmp = null;
+        EmployeeInfo minTopEmp = null;
 
         for(EmployeeInfo candEmp : allEmps){
             if(empsTop5.contains(candEmp)) {
                 continue;
             }
 
-            if(maxTopEmp==null) {
-                maxTopEmp = candEmp;
+            if(minTopEmp==null) {
+                minTopEmp = candEmp;
                 continue;
             }
-            else{
-                if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
-                    maxTopEmp = candEmp;
-                }
+
+            if(candEmp.getEmployeeNum10digitsString().compareTo(minTopEmp.getEmployeeNum10digitsString()) < 0){
+                minTopEmp = candEmp;
             }
 
         }
 
-        if(maxTopEmp != null) addInTop5(maxTopEmp) ;
+        if(minTopEmp != null) addInTop5(minTopEmp) ;
     }
 
 
@@ -159,43 +160,6 @@ class EmployeeTable  {
 
         }
     }
-//
-//    private void addInTop5(EmployeeInfo e) {
-//
-//        List<EmployeeInfo> eListTop5 = null;
-//        for(EmployeeSelectColumn empSelCol : selectColList){
-//
-//            eListTop5 = empTableMapTop5.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
-//            if( eListTop5 == null) {
-//                eListTop5 = new ArrayList<>();
-//                empTableMapTop5.get(empSelCol.selectColumnName).put(empSelCol.exeMap.getColumnDataFromEmployee(e),eListTop5);
-//                eListTop5.add(e);
-//            }
-//            else if(eListTop5.size()<5){
-//                eListTop5.add(e);
-//
-//            }
-//            else{
-//                EmployeeInfo maxTopEmp = null;
-//                for(EmployeeInfo candEmp : eListTop5){
-//                    if(maxTopEmp==null) maxTopEmp = candEmp;
-//                    else{
-//                        if(candEmp.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) > 0){
-//                            maxTopEmp = candEmp;
-//                        }
-//                    }
-//
-//                }
-//                if(e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
-//                {
-//                    eListTop5.remove(maxTopEmp);
-//                    eListTop5.add(e);
-//                }
-//
-//            }
-//        }
-//    }
-
 
     List<EmployeeInfo> searchEmployee(String searchCol, String searchValue, String option2){
 
@@ -207,7 +171,6 @@ class EmployeeTable  {
 
         String searchColWithOption = searchCol + ((option2==null || option2.equals(" "))?"":""+option2);
         return (List<EmployeeInfo>) empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new HashSet()).stream().collect(Collectors.toList());
-//        return (List<EmployeeInfo>) empTableMap.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new ArrayList()).stream().collect(Collectors.toList());
 
     }
 
