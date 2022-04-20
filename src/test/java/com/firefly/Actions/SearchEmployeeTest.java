@@ -18,7 +18,6 @@ class SearchEmployeeTest {
     EmployeeInfo info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11, info12, info13, info14, info15;
 
     IEmployeeDB db = new EmployeeDB();
-    ArrayList<EmployeeInfo> empDb = new ArrayList<>();
 
     @BeforeEach
     void setup(){
@@ -53,27 +52,26 @@ class SearchEmployeeTest {
         info15 = new EmployeeInfo("70000011", "PIO PARK", "CL4",
                 "010-2000-1321", "19880715", "PRO");
 
-        empDb.add(info1);
-        empDb.add(info2);
-        empDb.add(info3);
-        empDb.add(info4);
-        empDb.add(info5);
-        empDb.add(info6);
-        empDb.add(info7);
-        empDb.add(info8);
-        empDb.add(info9);
-        empDb.add(info10);
-        empDb.add(info11);
-        empDb.add(info12);
-        empDb.add(info13);
-        empDb.add(info14);
-        empDb.add(info15);
+        db.addEmployee(info1);
+        db.addEmployee(info2);
+        db.addEmployee(info3);
+        db.addEmployee(info4);
+        db.addEmployee(info5);
+        db.addEmployee(info6);
+        db.addEmployee(info7);
+        db.addEmployee(info8);
+        db.addEmployee(info9);
+        db.addEmployee(info10);
+        db.addEmployee(info11);
+        db.addEmployee(info12);
+        db.addEmployee(info13);
+        db.addEmployee(info14);
+        db.addEmployee(info15);
     }
 
     @Test
     void searchTestSorting(){
         SearchEmployee schTester = new SearchEmployee();
-        schTester.setEmployeeDb(empDb);
 
         HashMap<String, String> inputValue = new HashMap<>();
         inputValue.put("COMMAND","SCH");
@@ -91,7 +89,6 @@ class SearchEmployeeTest {
     @Test
     void searchTestUpToFive(){
         SearchEmployee schTester = new SearchEmployee();
-        schTester.setEmployeeDb(empDb);
 
         HashMap<String, String> inputValue = new HashMap<>();
         inputValue.put("COMMAND","SCH");
@@ -109,7 +106,6 @@ class SearchEmployeeTest {
     @Test
     void searchTestFoundNum(){
         SearchEmployee schTester = new SearchEmployee();
-        schTester.setEmployeeDb(empDb);
 
         HashMap<String, String> inputValue = new HashMap<>();
         inputValue.put("COMMAND","SCH");
@@ -127,7 +123,6 @@ class SearchEmployeeTest {
     @Test
     void searchTestByEmployeeNum(){
         SearchEmployee schTester = new SearchEmployee();
-        schTester.setEmployeeDb(empDb);
 
         HashMap<String, String> inputValue = new HashMap<>();
         inputValue.put("COMMAND","SCH");
