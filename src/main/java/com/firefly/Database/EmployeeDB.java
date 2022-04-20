@@ -1,6 +1,7 @@
 package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
+
 import java.util.List;
 
 public class EmployeeDB implements IEmployeeDB {
@@ -28,9 +29,8 @@ public class EmployeeDB implements IEmployeeDB {
 
     @Override
     public List<EmployeeInfo> searchEmployeeTop5(String searchCol, String searchValue, String option2) {
-        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5Sorted(searchCol,searchValue,option2);
 
-        sortEmpList(empsTop5);
         return empsTop5;
     }
 
@@ -38,13 +38,12 @@ public class EmployeeDB implements IEmployeeDB {
     public List<EmployeeInfo> delEmployeeRetToTop5(String searchCol, String searchValue, String option2) {
 
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
-        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5Sorted(searchCol,searchValue,option2);
 
         for(EmployeeInfo e : emps){
             empTable.remove(e);
         }
 
-        sortEmpList(empsTop5);
         return empsTop5;
     }
 
@@ -62,10 +61,11 @@ public class EmployeeDB implements IEmployeeDB {
     @Override
     public int modEmployeeRetToCnt(String searchCol, String searchValue,String option2, String modCol, String modValue) {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
+        EmployeeInfo newEmp = null;
 
         for(EmployeeInfo e : emps){
             empTable.remove(e);
-            EmployeeInfo newEmp = makeNewModifiedEmployee(e,modCol,modValue);
+            newEmp = makeNewModifiedEmployee(e,modCol,modValue);
             empTable.add(newEmp);
         }
 
@@ -75,25 +75,21 @@ public class EmployeeDB implements IEmployeeDB {
     @Override
     public List<EmployeeInfo> modEmployeeRetToTop5(String searchCol, String searchValue, String option2, String modCol, String modValue) {
         List<EmployeeInfo> emps = empTable.searchEmployee(searchCol,searchValue,option2);
-        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5(searchCol,searchValue,option2);
+        List<EmployeeInfo> empsTop5 = empTable.searchEmployeeTop5Sorted(searchCol,searchValue,option2);
 
+        EmployeeInfo newEmp = null;
         for(EmployeeInfo e : emps){
             empTable.remove(e);
-            EmployeeInfo newEmp = makeNewModifiedEmployee(e,modCol,modValue);
+            newEmp = makeNewModifiedEmployee(e,modCol,modValue);
             empTable.add(newEmp);
         }
 
-        sortEmpList(empsTop5);
         return empsTop5;
     }
 
-    private void sortEmpList(List<EmployeeInfo> emps){
-
-        emps.sort((EmployeeInfo e1, EmployeeInfo e2) -> e1.getEmployeeNum10digitsString().compareTo( e2.getEmployeeNum10digitsString() ) );
-    }
 
     private EmployeeInfo makeNewModifiedEmployee(EmployeeInfo e, String modCol, String modValue){
-        EmployeeInfo newEmp ;
+        EmployeeInfo newEmp = null ;
         if(modCol.equals("employeeNum")){
             newEmp = new EmployeeInfo(modValue, e.getName(), e.getCl().toString(),
                     e.getPhoneNumByString(), e.getBirthdayByString(), e.getCerti().toString());
