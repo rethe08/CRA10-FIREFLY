@@ -1,7 +1,6 @@
 package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,6 @@ class EmployeeTable  {
             new EmployeeSelectColumn("certi",EmployeeInfo::getCertiByString )
     );
 
-
     void clear() {
         empTableMap.clear();
         empTableMapTop5.clear();
@@ -55,11 +53,11 @@ class EmployeeTable  {
         return retSize;
     }
 
-
     public int remove(EmployeeInfo e) {
 
         Set<EmployeeInfo> allEmps=null;
         Set<EmployeeInfo> empsTop5=null;
+
 
         for(EmployeeSelectColumn empSelCol : selectColList){
 
@@ -68,6 +66,7 @@ class EmployeeTable  {
 
             allEmps.remove(e);
             empsTop5.remove(e);
+
 
             addInTop5IfRemoved(allEmps, empsTop5);
         }
@@ -104,12 +103,13 @@ class EmployeeTable  {
 
             if(candEmp.getEmployeeNum10digitsInt() <  minEmp.getEmployeeNum10digitsInt() ){
                 minEmp = candEmp;
+
             }
-
         }
-        return minEmp;
-    }
 
+        return minEmp;
+
+    }
 
     public int add(EmployeeInfo e) {
 
@@ -123,12 +123,15 @@ class EmployeeTable  {
             emps.add(e);
         }
 
+
         addInAllTop5(e);
+
         return 0;
     }
 
 
     private int addInAllTop5(EmployeeInfo e) {
+
 
         Set<EmployeeInfo> empsTop5 = null;
         EmployeeInfo maxTopEmp = null;
@@ -152,8 +155,8 @@ class EmployeeTable  {
                     empsTop5.remove(maxTopEmp);
                     empsTop5.add(e);
                 }
-
             }
+
         }
         return 0;
     }
@@ -186,7 +189,4 @@ class EmployeeTable  {
                 .collect(Collectors.toList());
 
     }
-
-
-
 }

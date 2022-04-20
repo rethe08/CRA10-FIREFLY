@@ -9,7 +9,6 @@ public class ActionManager {
         HashMap<String, String> inputValue = new HashMap<>();
 
         String[] inputSplit = inputCommand.split(",");
-        String inputAction = inputSplit[0];
 
         if(inputSplit.length != 6 && inputSplit.length != 8 && inputSplit.length != 10) return null;
         inputValue.put("COMMAND",inputSplit[0]);

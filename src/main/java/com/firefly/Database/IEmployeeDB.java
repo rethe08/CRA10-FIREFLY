@@ -1,7 +1,6 @@
 package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
-
 import java.util.List;
 
 public interface IEmployeeDB {

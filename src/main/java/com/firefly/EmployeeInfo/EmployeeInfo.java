@@ -137,13 +137,11 @@ public class EmployeeInfo {
         return birthday % 100;
     }
 
-    public String getBirthYearByString(){ return String.format( "%04d", birthday / 10000 ); }
+    public String getBirthYearByString() { return String.format( "%04d", birthday / 10000 ); }
 
-    public String getBirthMonthByString(){ return String.format( "%02d", birthday / 100 % 100);
-    }
+    public String getBirthMonthByString() { return String.format( "%02d", birthday / 100 % 100); }
 
-    public String getBirthDayOnlyByString(){ return String.format( "%02d", birthday % 100);
-    }
+    public String getBirthDayOnlyByString() { return String.format( "%02d", birthday % 100); }
 
     public Certificate getCerti(){
         return certi;
