@@ -9,8 +9,6 @@ import java.util.List;
 
 public class DelEmployee implements IActionEmployee {
 
-
-
     @Override
     public List<String> action(HashMap<String, String> inputCommand) {
 
@@ -23,8 +21,9 @@ public class DelEmployee implements IActionEmployee {
             }
         } else {
             int count = db.delEmployeeRetToCnt(inputCommand.get("VALUE1"), inputCommand.get("VALUE2"), inputCommand.get("OPTION2"));
-            if(count != 0)
+            if(count != 0) {
                 ret.add("DEL," + count);
+            }
         }
 
         if(ret.isEmpty()){

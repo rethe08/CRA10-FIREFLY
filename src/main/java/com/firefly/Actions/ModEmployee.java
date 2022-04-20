@@ -31,7 +31,5 @@ public class ModEmployee implements IActionEmployee {
             ret.add("MOD,NONE");
         }
         return ret;
-
-
     }
 }

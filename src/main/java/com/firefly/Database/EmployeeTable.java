@@ -1,8 +1,6 @@
 package com.firefly.Database;
 
 import com.firefly.EmployeeInfo.EmployeeInfo;
-import javafx.collections.transformation.SortedList;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,7 +36,6 @@ class EmployeeTable  {
             new EmployeeSelectColumn("certi",EmployeeInfo::getCertiByString )
     );
 
-
     void clear() {
         empTableMap.clear();
         empTableMapTop5.clear();
@@ -56,7 +53,6 @@ class EmployeeTable  {
         return retSize;
     }
 
-
     public void remove(EmployeeInfo e) {
 
         for(EmployeeSelectColumn empSelCol : selectColList){
@@ -67,15 +63,11 @@ class EmployeeTable  {
             allEmps.remove(e);
             empsTop5.remove(e);
 
-
-
-
             if( empsTop5.size() == 4 ) {
                 if(allEmps.size() == 4 ) return;
                 removeTop5(allEmps, empsTop5);
             }
         }
-
     }
 
     void removeTop5(Set<EmployeeInfo> allEmps,Set<EmployeeInfo> empsTop5){
@@ -86,25 +78,24 @@ class EmployeeTable  {
             if(empsTop5.contains(candEmp)) {
                 continue;
             }
-
             if(minTopEmp==null) {
                 minTopEmp = candEmp;
                 continue;
             }
-
             if(candEmp.getEmployeeNum10digitsString().compareTo(minTopEmp.getEmployeeNum10digitsString()) < 0){
                 minTopEmp = candEmp;
             }
-
         }
 
-        if(minTopEmp != null) addInTop5(minTopEmp) ;
+        if(minTopEmp != null) {
+            addInTop5(minTopEmp) ;
+        }
     }
-
 
     public int add(EmployeeInfo e) {
 
         Set<EmployeeInfo> eList = null;
+
         for(EmployeeSelectColumn empSelCol : selectColList){
             eList = empTableMap.get(empSelCol.selectColumnName).get(empSelCol.exeMap.getColumnDataFromEmployee(e));
             if( eList ==null) {
@@ -113,12 +104,10 @@ class EmployeeTable  {
             }
             eList.add(e);
         }
-
         addInTop5(e);
         return 0;
 
     }
-
 
     private void addInTop5(EmployeeInfo e) {
 
@@ -139,7 +128,6 @@ class EmployeeTable  {
         }
         else if(eListTop5.size()<5){
             eListTop5.add(e);
-
         }
         else{
             EmployeeInfo maxTopEmp = null;
@@ -150,14 +138,12 @@ class EmployeeTable  {
                         maxTopEmp = candEmp;
                     }
                 }
-
             }
             if(e.getEmployeeNum10digitsString().compareTo(maxTopEmp.getEmployeeNum10digitsString()) < 0)
             {
                 eListTop5.remove(maxTopEmp);
                 eListTop5.add(e);
             }
-
         }
     }
 
@@ -173,7 +159,4 @@ class EmployeeTable  {
         return (List<EmployeeInfo>) empTableMapTop5.getOrDefault(searchColWithOption, new HashMap<>()).getOrDefault(searchValue,new HashSet()).stream().collect(Collectors.toList());
 
     }
-
-
-
 }
